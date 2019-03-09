@@ -182,7 +182,7 @@ class Debugger extends Component {
         return (
             <div className="Debugger">
                 <Header/>
-                {!initiallyLoaded && <div>
+                {!initiallyLoaded && <div className="DebuggerLoader">
                     <Loader/>
                 </div>}
                 {initiallyLoaded && <div className="DebuggerForm">
@@ -199,10 +199,11 @@ class Debugger extends Component {
                             onChange={this.handleSelectContractMethod}
                             label="Method" placeholder="Select contract method"
                             disabled={!selectedContract || sendingTransaction}/>
-                    {(!!selectedMethod && selectedMethodInputs.length) && <div>
-                        {selectedMethodInputs.map(methodInput => <div key={methodInput.name}>
-                            <div>{methodInput.name}</div>
-                            <div>
+                    {(!!selectedMethod && selectedMethodInputs.length) && <div className="MethodInputsWrapper">
+                        <div className="InputsHeading">Method Inputs</div>
+                        {selectedMethodInputs.map(methodInput => <div key={methodInput.name} className="MethodInputItem">
+                            <div className="InputName">{methodInput.name}</div>
+                            <div className="InputInput">
                                 <Input value={methodInputs[methodInput.name]}
                                        field={methodInput.name}
                                        onChange={this.handleMethodInputChange}
@@ -213,12 +214,12 @@ class Debugger extends Component {
                     <Button disabled={!this.isFormValid()} color="orange" onClick={this.sendTransaction}>
                         <span>Send Transaction</span>
                     </Button>
-                    {(sendingTransaction || !!transactionResult) && <div>
-                        {sendingTransaction && <div>
+                    {(sendingTransaction || !!transactionResult) && <div className="TransactionResultWrapper">
+                        {sendingTransaction && <div className="ResultLoader">
                             <Loader/>
                         </div>}
-                        {!sendingTransaction && <div>
-                            <pre>{JSON.stringify(transactionResult)}</pre>
+                        {!sendingTransaction && <div className="ResultContent">
+                            <pre className="Result">{JSON.stringify(transactionResult)}</pre>
                         </div>}
                     </div>}
                 </div>}

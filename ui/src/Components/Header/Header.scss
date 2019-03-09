@@ -2,6 +2,7 @@
 
 .Header {
   background-color: $Dark400;
+  grid-area: debugger-header;
   display: flex;
   justify-content: space-between;
 

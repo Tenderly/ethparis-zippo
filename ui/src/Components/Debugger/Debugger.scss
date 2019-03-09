@@ -2,12 +2,52 @@
 
 .Debugger {
   grid-area: debugger;
-
-  .Heading {
-
-  }
+  display: grid;
+  grid-template-rows: 60px auto;
+  overflow: hidden;
+  grid-template-areas: "debugger-header" "debugger-console";
 
   .DebuggerForm {
+    grid-area: debugger-console;
     padding: 30px 20px;
+    overflow-y: auto;
+  }
+
+  .DebuggerLoader {}
+
+  .MethodInputsWrapper {
+    margin-bottom: 20px;
+    padding: 15px 20px 20px;
+    border: 1px solid $Dark100;
+    border-radius: 10px;
+    background-color: transparentize($Black, 0.8);
+
+    .InputsHeading {
+      font-size: 12px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+  }
+
+  .MethodInputItem {
+    display: flex;
+    align-items: center;
+
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+
+    .InputName {
+      flex: 0 0 30%;
+      font-size: 12px;
+      font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+      monospace;
+      text-align: right;
+    }
+
+    .InputInput {
+      flex: 0 0 70%;
+      margin-left: 20px;
+    }
   }
 }
