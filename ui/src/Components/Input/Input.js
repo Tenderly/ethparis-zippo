@@ -34,6 +34,7 @@ Input.propTypes = {
     field: PropTypes.string.isRequired,
     label: PropTypes.string,
     value: PropTypes.string.isRequired,
+    placeholder: PropTypes.string,
 };
 
 export default Input;

@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 
 import './Debugger.scss';
 import Loader from "../Loader/Loader";
+import Select from "../Select/Select";
+import Button from "../Button/Button";
 
 class Debugger extends Component {
     constructor(props) {
@@ -14,6 +16,7 @@ class Debugger extends Component {
             selectedContract: null,
             selectedContractMethods: [],
             selectedMethod: null,
+            selectedMethodInputs: null,
             methodInputs: {},
         };
     }
@@ -91,15 +94,47 @@ class Debugger extends Component {
         });
     };
 
+    handleSelectContract = (value, field) => {
+        const {methods} = this.state;
+
+        this.setState({
+            selectedContractMethods: methods[value],
+        });
+
+        this.handleInputChange(value, field);
+    };
+
+    handleSelectContractMethod = (value, field) => {
+        const {selectedContractMethods} = this.state;
+
+        const selectMethod = selectedContractMethods.find(method => method.name === value);
+
+        this.setState({
+            selectedMethodInputs: selectMethod.inputs,
+        });
+
+        this.handleInputChange(value, field);
+    };
+
+    sendTransaction = () => {
+        console.log(this.state);
+    };
+
     render() {
-        const {initiallyLoaded, contracts, methods, selectedContract, selectedContractMethods, selectedMethod} = this.state;
+        const {initiallyLoaded, contracts, selectedContract, selectedContractMethods, selectedMethod} = this.state;
 
         return (
             <div className="Debugger">
                 {!initiallyLoaded && <div>
                     <Loader/>
                 </div>}
-                {initiallyLoaded && <div>qwe</div>}
+                {initiallyLoaded && <div>
+                    <Select value={selectedContract} options={contracts} field="selectedContract" onChange={this.handleSelectContract} label="Contract" placeholder="Select contract"/>
+                    <Select value={selectedMethod} options={selectedContractMethods} field="selectedMethod" onChange={this.handleSelectContractMethod} label="Method" placeholder="Select contract method" disabled={!!selectedContract}/>
+                    <Button onClick={this.sendTransaction}>
+                        <span>Send Transaction</span>
+                    </Button>
+                </div>}
             </div>
         );
     }
