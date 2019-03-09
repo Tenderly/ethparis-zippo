@@ -726,7 +726,7 @@ func opCreate2(pc *uint64, interpreter *EVMInterpreter, contract *Contract, memo
 	var (
 		endowment    = stack.pop()
 		offset, size = stack.pop(), stack.pop()
-		salt         = stack.pop()
+		address      = stack.pop()
 		input        = memory.Get(offset.Int64(), size.Int64())
 		gas          = contract.Gas
 	)
@@ -734,7 +734,7 @@ func opCreate2(pc *uint64, interpreter *EVMInterpreter, contract *Contract, memo
 	// Apply EIP150
 	gas -= gas / 64
 	contract.UseGas(gas)
-	res, addr, returnGas, suberr := interpreter.evm.Create2(contract, input, gas, endowment, salt)
+	res, addr, returnGas, suberr := interpreter.evm.Create2(contract, input, gas, endowment, common.BigToAddress(address))
 	// Push item on the stack based on the returned error.
 	if suberr != nil {
 		stack.push(interpreter.intPool.getZero())
@@ -742,7 +742,7 @@ func opCreate2(pc *uint64, interpreter *EVMInterpreter, contract *Contract, memo
 		stack.push(addr.Big())
 	}
 	contract.Gas += returnGas
-	interpreter.intPool.put(endowment, offset, size, salt)
+	interpreter.intPool.put(endowment, offset, size)
 
 	if suberr == errExecutionReverted {
 		return res, nil

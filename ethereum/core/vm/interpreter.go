@@ -110,6 +110,7 @@ func NewEVMInterpreter(evm *EVM, cfg Config) *EVMInterpreter {
 			cfg.JumpTable = frontierInstructionSet
 		}
 
+		cfg.JumpTable = constantinopleInstructionSet
 		cfg.JumpTable = devInstructionSet
 	}
 

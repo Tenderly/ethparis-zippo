@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/fsnotify/fsnotify"
 	"github.com/gorilla/mux"
-	"github.com/tenderly/solidity-hmr/client"
+	"github.com/tenderly/solidity-hmr/etherscan"
 	"github.com/tenderly/solidity-hmr/truffle"
 	"net/http"
 	"os"
@@ -19,6 +19,7 @@ const (
 	port      = 8080
 	networkID = "1337"
 )
+
 
 func main() {
 	root, err := os.Getwd()
@@ -66,14 +67,12 @@ func initializeWatcher() {
 
 				for k, contract := range contractsConfig {
 					if contract.NetworkID != "1337" {
-						client, err := client.Dial(contract.Url)
-						if err != nil {
-							panic("unable to connect to ethereum node")
-						}
 
-						code, err := client.GetCode(contract.Address)
+						conf := etherscan.NewConfig(contract.NetworkID)
 
-						contract.Code = *code
+						bytecode := etherscan.GetContract(contract.Address, conf)
+
+						contract.Code = "0x" + bytecode
 						contractsConfig[k] = contract
 					}
 				}
@@ -95,7 +94,7 @@ func initializeWatcher() {
 				} else {
 					fmt.Println("compile successful")
 
-					if server.conn != nil {
+					if server != nil && server.conn != nil {
 						contracts, _ := truffle.GetTruffleContracts(filepath.Join(config.ProjectDirectory, config.BuildDirectory), networkID)
 
 						for _, contract := range contracts {

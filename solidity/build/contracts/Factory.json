@@ -21,11 +21,11 @@
       "signature": "0x411a0179"
     }
   ],
-  "bytecode": "0x608060405234801561001057600080fd5b50610174806100206000396000f3fe608060405234801561001057600080fd5b5060043610610048576000357c010000000000000000000000000000000000000000000000000000000090048063411a01791461004d575b600080fd5b6101266004803603604081101561006357600080fd5b810190808035906020019064010000000081111561008057600080fd5b82018360208201111561009257600080fd5b803590602001918460018302840111640100000000831117156100b457600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610128565b005b6000808351602085016000f59050803b151561014357600080fd5b50505056fea165627a7a723058209d1cf2863ecba4028c43003b402aa3fe7496485028a86600eac0dcf24954f0e60029",
-  "deployedBytecode": "0x608060405234801561001057600080fd5b5060043610610048576000357c010000000000000000000000000000000000000000000000000000000090048063411a01791461004d575b600080fd5b6101266004803603604081101561006357600080fd5b810190808035906020019064010000000081111561008057600080fd5b82018360208201111561009257600080fd5b803590602001918460018302840111640100000000831117156100b457600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610128565b005b6000808351602085016000f59050803b151561014357600080fd5b50505056fea165627a7a723058209d1cf2863ecba4028c43003b402aa3fe7496485028a86600eac0dcf24954f0e60029",
-  "sourceMap": "33:292:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;33:292:0;;;;;;;",
-  "deployedSourceMap": "33:292:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;33:292:0;;;;;;;;;;;;;;;;;;;;56:267;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;56:267:0;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;56:267:0;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;56:267:0;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;56:267:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;56:267:0;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;122:12;216:4;209;203:11;196:4;190;186:15;183:1;175:46;167:54;;256:4;244:17;237:25;234:2;;;291:1;288;281:12;234:2;153:164;;;:::o",
-  "source": "pragma solidity >0.4.25 <0.6.0;\n\ncontract Factory {\n    function deploy(bytes memory code, address addr) public {\n        address addr;\n        assembly {\n            addr := create2(0, add(code, 0x20), mload(code), addr)\n            if iszero(extcodesize(addr)) {\n                revert(0, 0)\n            }\n        }\n    }\n}",
+  "bytecode": "0x608060405234801561001057600080fd5b50610118806100206000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c8063411a017914602d575b600080fd5b60d860048036036040811015604157600080fd5b810190602081018135640100000000811115605b57600080fd5b820183602082011115606c57600080fd5b80359060200191846001830284011164010000000083111715608d57600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600092019190915250929550505090356001600160a01b0316915060da9050565b005b6000818351602085016000f55050505056fea165627a7a72305820c982b388f33b19123d04518b25a6c3c1d26aeb2e3067e7c3621ba17156c6350b0029",
+  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060285760003560e01c8063411a017914602d575b600080fd5b60d860048036036040811015604157600080fd5b810190602081018135640100000000811115605b57600080fd5b820183602082011115606c57600080fd5b80359060200191846001830284011164010000000083111715608d57600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600092019190915250929550505090356001600160a01b0316915060da9050565b005b6000818351602085016000f55050505056fea165627a7a72305820c982b388f33b19123d04518b25a6c3c1d26aeb2e3067e7c3621ba17156c6350b0029",
+  "sourceMap": "33:215:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;33:215:0;;;;;;;",
+  "deployedSourceMap": "33:215:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;33:215:0;;;;;;;;;;;;;;;;;;;56:190;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;56:190:0;;;;;;;;21:11:-1;5:28;;2:2;;;46:1;43;36:12;2:2;56:190:0;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;56:190:0;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;56:190:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;81:16;;74:27;;;;-1:-1;56:190:0;;-1:-1:-1;;;56:190:0;;-1:-1:-1;;;;;56:190:0;;-1:-1:-1;56:190:0;;-1:-1:-1;56:190:0:i;:::-;;;123:16;225:4;218;212:11;205:4;199;195:15;192:1;184:46;-1:-1:-1;;;;158:82:0:o",
+  "source": "pragma solidity >0.4.25 <0.6.0;\n\ncontract Factory {\n    function deploy(bytes memory code,  address addr) public {\n        address deployed;\n        assembly {\n            deployed := create2(0, add(code, 0x20), mload(code), addr)\n        }\n    }\n}",
   "sourcePath": "/Users/nebojsa.urosevic/go/src/github.com/tenderly/solidity-hmr/solidity/contracts/Factory.sol",
   "ast": {
     "absolutePath": "/Users/nebojsa.urosevic/go/src/github.com/tenderly/solidity-hmr/solidity/contracts/Factory.sol",
@@ -68,7 +68,7 @@
             "body": {
               "id": 12,
               "nodeType": "Block",
-              "src": "112:211:0",
+              "src": "113:133:0",
               "statements": [
                 {
                   "assignments": [
@@ -78,10 +78,10 @@
                     {
                       "constant": false,
                       "id": 9,
-                      "name": "addr",
+                      "name": "deployed",
                       "nodeType": "VariableDeclaration",
                       "scope": 12,
-                      "src": "122:12:0",
+                      "src": "123:16:0",
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
@@ -92,7 +92,7 @@
                         "id": 8,
                         "name": "address",
                         "nodeType": "ElementaryTypeName",
-                        "src": "122:7:0",
+                        "src": "123:7:0",
                         "stateMutability": "nonpayable",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -106,16 +106,16 @@
                   "id": 10,
                   "initialValue": null,
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "122:12:0"
+                  "src": "123:16:0"
                 },
                 {
                   "externalReferences": [
                     {
-                      "addr": {
+                      "deployed": {
                         "declaration": 9,
                         "isOffset": false,
                         "isSlot": false,
-                        "src": "167:4:0",
+                        "src": "172:8:0",
                         "valueSize": 1
                       }
                     },
@@ -124,7 +124,7 @@
                         "declaration": 3,
                         "isOffset": false,
                         "isSlot": false,
-                        "src": "209:4:0",
+                        "src": "218:4:0",
                         "valueSize": 1
                       }
                     },
@@ -133,33 +133,24 @@
                         "declaration": 3,
                         "isOffset": false,
                         "isSlot": false,
-                        "src": "190:4:0",
+                        "src": "199:4:0",
                         "valueSize": 1
                       }
                     },
                     {
                       "addr": {
-                        "declaration": 9,
+                        "declaration": 5,
                         "isOffset": false,
                         "isSlot": false,
-                        "src": "216:4:0",
-                        "valueSize": 1
-                      }
-                    },
-                    {
-                      "addr": {
-                        "declaration": 9,
-                        "isOffset": false,
-                        "isSlot": false,
-                        "src": "256:4:0",
+                        "src": "225:4:0",
                         "valueSize": 1
                       }
                     }
                   ],
                   "id": 11,
                   "nodeType": "InlineAssembly",
-                  "operations": "{\n    addr := create2(0, add(code, 0x20), mload(code), addr)\n    if iszero(extcodesize(addr))\n    {\n        revert(0, 0)\n    }\n}",
-                  "src": "144:179:0"
+                  "operations": "{\n    deployed := create2(0, add(code, 0x20), mload(code), addr)\n}",
+                  "src": "149:97:0"
                 }
               ]
             },
@@ -206,7 +197,7 @@
                   "name": "addr",
                   "nodeType": "VariableDeclaration",
                   "scope": 13,
-                  "src": "91:12:0",
+                  "src": "92:12:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -217,7 +208,7 @@
                     "id": 4,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "91:7:0",
+                    "src": "92:7:0",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -228,26 +219,26 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "71:33:0"
+              "src": "71:34:0"
             },
             "returnParameters": {
               "id": 7,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "112:0:0"
+              "src": "113:0:0"
             },
             "scope": 14,
-            "src": "56:267:0",
+            "src": "56:190:0",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
         "scope": 15,
-        "src": "33:292:0"
+        "src": "33:215:0"
       }
     ],
-    "src": "0:325:0"
+    "src": "0:248:0"
   },
   "legacyAST": {
     "absolutePath": "/Users/nebojsa.urosevic/go/src/github.com/tenderly/solidity-hmr/solidity/contracts/Factory.sol",
@@ -290,7 +281,7 @@
             "body": {
               "id": 12,
               "nodeType": "Block",
-              "src": "112:211:0",
+              "src": "113:133:0",
               "statements": [
                 {
                   "assignments": [
@@ -300,10 +291,10 @@
                     {
                       "constant": false,
                       "id": 9,
-                      "name": "addr",
+                      "name": "deployed",
                       "nodeType": "VariableDeclaration",
                       "scope": 12,
-                      "src": "122:12:0",
+                      "src": "123:16:0",
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
@@ -314,7 +305,7 @@
                         "id": 8,
                         "name": "address",
                         "nodeType": "ElementaryTypeName",
-                        "src": "122:7:0",
+                        "src": "123:7:0",
                         "stateMutability": "nonpayable",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -328,16 +319,16 @@
                   "id": 10,
                   "initialValue": null,
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "122:12:0"
+                  "src": "123:16:0"
                 },
                 {
                   "externalReferences": [
                     {
-                      "addr": {
+                      "deployed": {
                         "declaration": 9,
                         "isOffset": false,
                         "isSlot": false,
-                        "src": "167:4:0",
+                        "src": "172:8:0",
                         "valueSize": 1
                       }
                     },
@@ -346,7 +337,7 @@
                         "declaration": 3,
                         "isOffset": false,
                         "isSlot": false,
-                        "src": "209:4:0",
+                        "src": "218:4:0",
                         "valueSize": 1
                       }
                     },
@@ -355,33 +346,24 @@
                         "declaration": 3,
                         "isOffset": false,
                         "isSlot": false,
-                        "src": "190:4:0",
+                        "src": "199:4:0",
                         "valueSize": 1
                       }
                     },
                     {
                       "addr": {
-                        "declaration": 9,
+                        "declaration": 5,
                         "isOffset": false,
                         "isSlot": false,
-                        "src": "216:4:0",
-                        "valueSize": 1
-                      }
-                    },
-                    {
-                      "addr": {
-                        "declaration": 9,
-                        "isOffset": false,
-                        "isSlot": false,
-                        "src": "256:4:0",
+                        "src": "225:4:0",
                         "valueSize": 1
                       }
                     }
                   ],
                   "id": 11,
                   "nodeType": "InlineAssembly",
-                  "operations": "{\n    addr := create2(0, add(code, 0x20), mload(code), addr)\n    if iszero(extcodesize(addr))\n    {\n        revert(0, 0)\n    }\n}",
-                  "src": "144:179:0"
+                  "operations": "{\n    deployed := create2(0, add(code, 0x20), mload(code), addr)\n}",
+                  "src": "149:97:0"
                 }
               ]
             },
@@ -428,7 +410,7 @@
                   "name": "addr",
                   "nodeType": "VariableDeclaration",
                   "scope": 13,
-                  "src": "91:12:0",
+                  "src": "92:12:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -439,7 +421,7 @@
                     "id": 4,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "91:7:0",
+                    "src": "92:7:0",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -450,41 +432,41 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "71:33:0"
+              "src": "71:34:0"
             },
             "returnParameters": {
               "id": 7,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "112:0:0"
+              "src": "113:0:0"
             },
             "scope": 14,
-            "src": "56:267:0",
+            "src": "56:190:0",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
         "scope": 15,
-        "src": "33:292:0"
+        "src": "33:215:0"
       }
     ],
-    "src": "0:325:0"
+    "src": "0:248:0"
   },
   "compiler": {
     "name": "solc",
-    "version": "0.5.4+commit.9549d8ff.Emscripten.clang"
+    "version": "0.5.5+commit.47a71e8f.Emscripten.clang"
   },
   "networks": {
     "1337": {
       "events": {},
       "links": {},
-      "address": "0x2c5390081f2EC2b21CCf4DbFDEE15e889FF93589",
-      "transactionHash": "0xa7863cabcbe0a2aead4aa2bb90ea3e372ac39eb5df847a13702154f44017ad06"
+      "address": "0xEDFDc9bABed159F5C1c0fF7B994AeA20ff3224f5",
+      "transactionHash": "0x0ab2e5d803c06473764daa304ab4c09f0c0b81098972888b3b1c6688da599169"
     }
   },
   "schemaVersion": "3.0.2",
-  "updatedAt": "2019-03-09T20:10:34.720Z",
+  "updatedAt": "2019-03-09T22:47:27.184Z",
   "devdoc": {
     "methods": {}
   },

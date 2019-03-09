@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"github.com/spf13/viper"
 )
@@ -29,7 +28,7 @@ var configPaths = []string{
 }
 
 func init() {
-	flag.StringVar(&configName, "config", "config", "Configuration file name (without the extension)")
+	//flag.StringVar(&configName, "config", "config", "Configuration file name (without the extension)")
 }
 
 func configInit() {
@@ -77,6 +76,9 @@ func GetConfig() map[string]*DeploymentInformation {
 		}
 		if value, ok := values["url"]; ok {
 			deploymentInformations[k].Url = value.(string)
+		}
+		if value, ok := values["name"]; ok {
+			deploymentInformations[k].Name = value.(string)
 		}
 	}
 
