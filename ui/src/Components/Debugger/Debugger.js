@@ -4,6 +4,8 @@ import './Debugger.scss';
 import Loader from "../Loader/Loader";
 import Select from "../Select/Select";
 import Button from "../Button/Button";
+import Input from "../Input/Input";
+import {WS_URL} from "../../Common/constants";
 
 class Debugger extends Component {
     constructor(props) {
@@ -16,12 +18,15 @@ class Debugger extends Component {
             selectedContract: null,
             selectedContractMethods: [],
             selectedMethod: null,
-            selectedMethodInputs: null,
+            selectedMethodInputs: [],
             methodInputs: {},
+            sendingTransaction: false,
+            transactionResult: null,
         };
     }
 
     componentDidMount() {
+        console.log(WS_URL);
         setTimeout(() => {
             this.setState({
                 initiallyLoaded: true,
@@ -54,11 +59,11 @@ class Debugger extends Component {
                             name: "multiply()",
                             inputs: [
                                 {
-                                    name: "a",
+                                    name: "ma",
                                     type: "int36"
                                 },
                                 {
-                                    name: "b",
+                                    name: "mb",
                                     type: "int36"
                                 },
                             ],
@@ -87,21 +92,32 @@ class Debugger extends Component {
     };
 
     handleMethodInputChange = (value, field) => {
+        const {methodInputs} = this.state;
+
         this.setState({
             methodInputs: {
+                ...methodInputs,
                 [field]: value,
             },
         });
     };
 
     isFormValid = () => {
-        const {selectedContract, selectedMethod, methodInputs} = this.state;
+        const {selectedContract, selectedMethod, methodInputs, selectedMethodInputs, sendingTransaction} = this.state;
 
-        if (!selectedContract || !selectedMethod) {
+        if (!selectedContract || !selectedMethod || sendingTransaction) {
             return false;
         }
 
-        return true;
+        let valid = true;
+
+        selectedMethodInputs.forEach(methodInput => {
+            if (!methodInputs[methodInput.name]) {
+                valid = false;
+            }
+        });
+
+        return valid;
     };
 
     handleSelectContract = (value, field) => {
@@ -109,6 +125,11 @@ class Debugger extends Component {
 
         this.setState({
             selectedContractMethods: methods[value],
+            selectedMethod: null,
+            selectedMethodInputs: [],
+            methodInputs: {},
+            sendingTransaction: false,
+            transactionResult: null,
         });
 
         this.handleInputChange(value, field);
@@ -119,10 +140,11 @@ class Debugger extends Component {
 
         const selectedMethod = selectedContractMethods.find(method => method.name === value);
 
-        console.log(selectedMethod, selectedMethod.inputs);
-
         this.setState({
             selectedMethodInputs: selectedMethod.inputs,
+            methodInputs: {},
+            sendingTransaction: false,
+            transactionResult: null,
         });
 
         this.handleInputChange(value, field);
@@ -130,10 +152,33 @@ class Debugger extends Component {
 
     sendTransaction = () => {
         console.log(this.state);
+        this.setState({
+            sendingTransaction: true,
+            transactionResult: null,
+        });
+
+        setTimeout(() => {
+            this.setState({
+                sendingTransaction: false,
+                transactionResult: {
+                    message: 'something'
+                },
+            });
+        }, 5000);
     };
 
     render() {
-        const {initiallyLoaded, contracts, selectedContract, selectedContractMethods, selectedMethod} = this.state;
+        const {
+            initiallyLoaded,
+            contracts,
+            selectedContract,
+            selectedContractMethods,
+            selectedMethod,
+            selectedMethodInputs,
+            methodInputs,
+            sendingTransaction,
+            transactionResult
+        } = this.state;
 
         return (
             <div className="Debugger">
@@ -146,16 +191,36 @@ class Debugger extends Component {
                             field="selectedContract"
                             onChange={this.handleSelectContract}
                             label="Contract"
+                            disabled={sendingTransaction}
                             placeholder="Select contract"/>
                     <Select value={selectedMethod}
                             options={selectedContractMethods}
                             field="selectedMethod"
                             onChange={this.handleSelectContractMethod}
                             label="Method" placeholder="Select contract method"
-                            disabled={!selectedContract}/>
+                            disabled={!selectedContract || sendingTransaction}/>
+                    {(!!selectedMethod && selectedMethodInputs.length) && <div>
+                        {selectedMethodInputs.map(methodInput => <div key={methodInput.name}>
+                            <div>{methodInput.name}</div>
+                            <div>
+                                <Input value={methodInputs[methodInput.name]}
+                                       field={methodInput.name}
+                                       onChange={this.handleMethodInputChange}
+                                       placeholder={methodInput.type}/>
+                            </div>
+                        </div>)}
+                    </div>}
                     <Button disabled={!this.isFormValid()} color="orange" onClick={this.sendTransaction}>
                         <span>Send Transaction</span>
                     </Button>
+                    {(sendingTransaction || !!transactionResult) && <div>
+                        {sendingTransaction && <div>
+                            <Loader/>
+                        </div>}
+                        {!sendingTransaction && <div>
+                            <pre>{JSON.stringify(transactionResult)}</pre>
+                        </div>}
+                    </div>}
                 </div>}
             </div>
         );
