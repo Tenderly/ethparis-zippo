@@ -51,24 +51,19 @@ func serveWs(w http.ResponseWriter, r *http.Request) {
 	go server.writePump()
 	go server.readPump()
 
-	contracts, err := truffle.GetTruffleContracts(filepath.Join(config.ProjectDirectory, config.BuildDirectory), "1337")
+	contracts, err := truffle.GetTruffleContracts(filepath.Join(config.ProjectDirectory, config.BuildDirectory), networkID)
 	if err != nil {
 		panic(fmt.Sprintf("unable to fetch contracts from build directory: %s", err))
 	}
 
 	if err != nil {
-		data, _ := json.Marshal(InitialMessage{
-			Ok: false,
-		})
+		data, _ := json.Marshal(NewInitialMessage(false))
 
 		server.send <- data
 	} else {
 		contractsJson, _ := json.Marshal(contracts)
 
-		data, _ := json.Marshal(InitialMessage{
-			Ok: true,
-			Data: contractsJson,
-		})
+		data, _ := json.Marshal(NewInitialMessage(true, contractsJson))
 
 		server.send <- data
 	}
