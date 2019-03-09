@@ -29,8 +29,9 @@ class EthereumClient {
      */
     static sendTransaction(method, params, callback = () => {}) {
         if (web3) {
-            if (params && !!params.length) {
-                method(...params)
+            const calledMethod = method(...params);
+            if (calledMethod.hasOwnProperty('send')) {
+                calledMethod
                     .send({
                         from: web3Account,
                     }, callback)
@@ -44,28 +45,22 @@ class EthereumClient {
                         console.log('receipt', receipt);
                     })
                     .on('error', console.error);
-            } else {
-                method()
-                    .send({
+            } else if (calledMethod.hasOwnProperty('call')) {
+                calledMethod
+                    .call({
                         from: web3Account,
                     }, callback)
-                    .on('transactionHash', (hash) => {
-                        console.log('transactionHash', hash);
-                    })
-                    .on('confirmation', (confirmationNumber, receipt) => {
-                        console.log('confirmation', confirmationNumber, receipt);
-                    })
-                    .on('receipt', (receipt) => {
-                        console.log('receipt', receipt);
-                    })
-                    .on('error', console.error);
-                // web3.eth.personal.unlockAccount(web3Account, web3AccountPassword, 600)
-                //     .then(() => {
-                //         method(...params).send({
-                //             from: web3Account,
-                //         }, callback);
-                //     });
+                    .then((result) => {
+                        console.log('call result', result);
+                    });
             }
+
+            // web3.eth.personal.unlockAccount(web3Account, web3AccountPassword, 600)
+            //     .then(() => {
+            //         method(...params).send({
+            //             from: web3Account,
+            //         }, callback);
+            //     });
         }
     }
 
