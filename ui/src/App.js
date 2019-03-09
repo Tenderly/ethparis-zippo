@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import './App.scss';
-import Header from "./Components/Header/Header";
 import ActionLogs from "./Components/ActionLogs/ActionLogs";
 import Debugger from "./Components/Debugger/Debugger";
 

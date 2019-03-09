@@ -6,7 +6,11 @@
   justify-content: space-between;
 
   .LogoWrapper {
-    padding: 10px 12px;
+    padding: 8px 12px;
+
+    img {
+      display: block;
+    }
   }
 
   .MainWrapper {

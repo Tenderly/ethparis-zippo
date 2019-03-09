@@ -60,8 +60,8 @@ class Select extends Component {
                 )}>
                     <div className="Label" onClick={this.toggleDropdown}>{label}</div>
                     <div className="CurrentSelection" onClick={this.toggleDropdown}>
-                        {!!value && <span>{value}</span>}
-                        {!value && <span>{placeholder || 'Select an option'}</span>}
+                        {!!value && <span className="Value">{value}</span>}
+                        {!value && <span className="Placeholder">{placeholder || 'Select an option'}</span>}
                     </div>
                     <div className="SelectDropdown">
                         {!!options.length && options.map(option => <div className="DropdownOption" key={option.name} onClick={() => this.handleSelect(option)}>

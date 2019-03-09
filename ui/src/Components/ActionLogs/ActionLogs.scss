@@ -3,5 +3,17 @@
 .ActionLogs {
   grid-area: logger;
   background-color: darken($Dark400, 6);
-  border-left: 2px solid transparentize($White, 0.8)
+  border-left: 2px solid $Dark100;
+  display: grid;
+  grid-template-rows: 60px 1fr;
+  grid-template-areas: "header" "logs";
+
+  .LogHeader {
+    background-color: transparentize($Black, 0.8);
+    grid-area: header;
+  }
+
+  .Logs {
+    grid-area: logs;
+  }
 }
