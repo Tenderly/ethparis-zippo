@@ -18,7 +18,7 @@ class Header extends Component {
                 <div className="ActionsWrapper">
                     <Button>
                         <Icon icon="refresh-cw"/>
-                        <span>Reload</span>
+                        <span>Sync</span>
                     </Button>
                 </div>
             </div>

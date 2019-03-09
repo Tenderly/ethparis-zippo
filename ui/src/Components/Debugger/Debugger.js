@@ -5,7 +5,7 @@ import Loader from "../Loader/Loader";
 import Select from "../Select/Select";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
-import {WS_URL} from "../../Common/constants";
+import Header from "../Header/Header";
 
 class Debugger extends Component {
     constructor(props) {
@@ -26,7 +26,6 @@ class Debugger extends Component {
     }
 
     componentDidMount() {
-        console.log(WS_URL);
         setTimeout(() => {
             this.setState({
                 initiallyLoaded: true,
@@ -182,10 +181,11 @@ class Debugger extends Component {
 
         return (
             <div className="Debugger">
+                <Header/>
                 {!initiallyLoaded && <div>
                     <Loader/>
                 </div>}
-                {initiallyLoaded && <div>
+                {initiallyLoaded && <div className="DebuggerForm">
                     <Select value={selectedContract}
                             options={contracts}
                             field="selectedContract"

@@ -2,6 +2,6 @@
 
 .ActionLogs {
   grid-area: logger;
-  background-color: #345678;
+  background-color: darken($Dark400, 6);
   border-left: 2px solid transparentize($White, 0.8)
 }

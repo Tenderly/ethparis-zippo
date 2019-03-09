@@ -1,6 +1,7 @@
+@import "../../Common/styles";
+
 .Header {
-  grid-area: header;
-  background-color: #012345;
+  background-color: $Dark400;
   display: flex;
   justify-content: space-between;
 
