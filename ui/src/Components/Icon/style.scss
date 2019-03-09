@@ -2,12 +2,12 @@
 
 @font-face {
   font-family: '#{$icomoon-font-family}';
-  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?8c6xbr');
-  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?8c6xbr#iefix') format('embedded-opentype'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff2?8c6xbr') format('woff2'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?8c6xbr') format('truetype'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?8c6xbr') format('woff'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?8c6xbr##{$icomoon-font-family}') format('svg');
+  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?id9jwe');
+  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?id9jwe#iefix') format('embedded-opentype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff2?id9jwe') format('woff2'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?id9jwe') format('truetype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?id9jwe') format('woff'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?id9jwe##{$icomoon-font-family}') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -27,6 +27,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-spinner {
+  &:before {
+    content: $icon-spinner; 
+  }
+}
 .icon-ethereum {
   &:before {
     content: $icon-ethereum; 
