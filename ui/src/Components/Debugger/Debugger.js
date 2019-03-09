@@ -6,6 +6,7 @@ import Select from "../Select/Select";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 import Header from "../Header/Header";
+import EthereumClient from "../../EthereumClient";
 
 class Debugger extends Component {
     constructor(props) {
@@ -75,10 +76,10 @@ class Debugger extends Component {
     handleSelectContract = (value, field) => {
         const {contracts} = this.state;
 
-        const selectedContact = contracts.find(contract => contract.name === value);
+        const selectedContract = contracts.find(contract => contract.name === value);
 
         this.setState({
-            selectedContractMethods: selectedContact.methods,
+            selectedContractMethods: selectedContract.methods,
             selectedMethod: null,
             selectedMethodInputs: [],
             methodInputs: {},
@@ -105,10 +106,24 @@ class Debugger extends Component {
     };
 
     sendTransaction = () => {
-        console.log(this.state);
+        const {contracts, selectedContract, methodInputs, selectedMethod} = this.state;
+        const {abi} = this.props;
+
         this.setState({
             sendingTransaction: true,
             transactionResult: null,
+        });
+
+        const txContract = contracts.find(contract => contract.name === selectedContract);
+
+        const transactionMethod = EthereumClient.getContract(
+            abi[txContract.address], txContract.address
+        ).methods[selectedMethod.replace('()', '')];
+
+        console.log(abi, txContract.address, transactionMethod, selectedMethod);
+
+        EthereumClient.sendTransaction(transactionMethod, Object.values(methodInputs), (error, tx) => {
+            console.log(error, tx);
         });
 
         setTimeout(() => {

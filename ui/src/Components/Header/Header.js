@@ -3,8 +3,6 @@ import React, {Component} from 'react';
 import './Header.scss';
 
 import ZippoLogo from '../../Images/ColoredDarkZippoLogo.svg';
-import Button from "../Button/Button";
-import Icon from "../Icon/Icon";
 
 class Header extends Component {
     render() {
@@ -16,10 +14,6 @@ class Header extends Component {
                     </div>
                 </div>
                 <div className="ActionsWrapper">
-                    <Button>
-                        <Icon icon="refresh-cw"/>
-                        <span>Sync</span>
-                    </Button>
                 </div>
             </div>
         );
