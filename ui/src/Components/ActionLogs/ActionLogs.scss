@@ -1,0 +1,7 @@
+@import "../../Common/styles";
+
+.ActionLogs {
+  grid-area: logger;
+  background-color: #345678;
+  border-left: 2px solid transparentize($White, 0.8)
+}

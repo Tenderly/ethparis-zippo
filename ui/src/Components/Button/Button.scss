@@ -1,0 +1,44 @@
+@import "../../Common/styles";
+
+.Button {
+  color: $White;
+  font-size: 14px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: 0.15s;
+  display: flex;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 4px;
+
+  span + .ZippoIcon {
+    margin-left: 6px;
+  }
+
+  .ZippoIcon + span {
+    margin-left: 6px;
+  }
+
+  &.invisible {
+    border-color: $White;
+    background-color: transparent;
+
+    &:hover {
+      background-color: transparentize($Black, 0.5);
+    }
+  }
+
+  &.orange {
+    border-color: $Orange200;
+    background-color: lighten($Orange200, 4);
+
+    &:hover {
+      background-color: $Orange200;
+    }
+  }
+
+  &.disabled, &[disabled], &:disabled {
+    opacity: 0.75;
+    cursor: no-drop;
+  }
+}

@@ -1,0 +1,43 @@
+@import "../../Common/styles";
+
+@keyframes LoaderRotation {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(0.6);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+$OuterLoaderSize: 50px;
+$InnerLoaderSize: 20px;
+
+.Loader {
+  position: relative;
+
+  > div {
+    animation-fill-mode: both;
+    border: 2px solid transparentize($Orange200, 0.2);
+    border-bottom-color: transparent;
+    border-top-color: transparent;
+    border-radius: 100%;
+    height: $OuterLoaderSize;
+    width: $OuterLoaderSize;
+    animation: LoaderRotation 1s 0s ease-in-out infinite;
+
+    &:last-child {
+      position: absolute;
+      top: ($OuterLoaderSize - $InnerLoaderSize) / 2;
+      left: ($OuterLoaderSize - $InnerLoaderSize) / 2;
+      width: $InnerLoaderSize;
+      height: $InnerLoaderSize;
+      border-width: 1px;
+      animation-duration: 0.5s;
+      border-color: $Orange100 transparent $Orange100 transparent;
+      animation-direction: reverse;
+    }
+  }
+}
