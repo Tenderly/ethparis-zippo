@@ -42,8 +42,11 @@ class InitialMessage extends Message {
                 methods: extractMethodsFromAbi(contract.abi),
             }
         });
+
+        const contractsDeployed = `[${contracts.map(c => c.name).join(', ')}]`;
+
         this.data = {
-            message: '',
+            message: `Initial deployment of ${contractsDeployed}`,
             description: '',
             contracts,
         };

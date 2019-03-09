@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import Moment from 'moment';
 
 import "./ActionLogs.scss";
+import Icon from "../Icon/Icon";
 
 class ActionLogs extends Component {
     constructor(props) {
@@ -10,6 +11,7 @@ class ActionLogs extends Component {
 
         this.state = {
             logsLoaded: false,
+            connected: false,
             logs: [
                 {
                     level: 'info',
@@ -69,14 +71,19 @@ class ActionLogs extends Component {
     };
 
     render() {
-        const {logs} = this.state;
+        const {connected} = this.state;
+        const {logs} = this.props;
 
         return (
             <div className="ActionLogs">
                 <div className="LogsHeader">
-                    <div className="ConnectionInformation">
+                    {!connected && <div className="ConnectionLoader">
+                        <Icon icon="spinner"/>
+                        <span>Connecting...</span>
+                    </div>}
+                    {connected && <div className="ConnectionInformation">
                         Connected to RPC: <span className="Network">Ganache (http://localhost:8545)</span>
-                    </div>
+                    </div>}
                 </div>
                 <div className="LogsContent">
                     <div className="LogsWrapper">

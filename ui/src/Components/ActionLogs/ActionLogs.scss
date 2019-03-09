@@ -1,5 +1,14 @@
 @import "../../Common/styles";
 
+@keyframes RotationAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
 .ActionLogs {
   grid-area: logger;
   background-color: darken($Dark400, 6);
@@ -23,6 +32,23 @@
         font-weight: 600;
         color: $Orange200;
         margin-left: 5px;
+      }
+    }
+
+    .ConnectionLoader {
+      display: flex;
+      align-items: center;
+
+      .ZippoIcon {
+        transform-origin: center;
+        display: block;
+        color: $Orange100;
+        animation: RotationAnimation 1s linear infinite;
+      }
+      span {
+        margin-left: 10px;
+        font-size: 11px;
+        text-transform: uppercase;
       }
     }
   }
