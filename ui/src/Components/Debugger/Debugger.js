@@ -25,63 +25,16 @@ class Debugger extends Component {
         };
     }
 
-    componentDidMount() {
-        setTimeout(() => {
-            this.setState({
+    static getDerivedStateFromProps(props, state) {
+        if (!state.initiallyLoaded && props.contracts && !!props.contracts.length) {
+            return {
+                ...state,
                 initiallyLoaded: true,
-                contracts: [
-                    {
-                        name: "Calculator.sol",
-                        address: "0x6B6220677b93E8fc9dC3ffE582E481B7A56c79a9",
-                    },
-                    {
-                        name: "SafeMath.sol",
-                        address: "0x4cb5442e13a7b269328f490a75d65aa4ca2883cb",
-                    },
-                ],
-                methods: {
-                    "Calculator.sol": [
-                        {
-                            name: "sum()",
-                            inputs: [
-                                {
-                                    name: "a",
-                                    type: "int36"
-                                },
-                                {
-                                    name: "b",
-                                    type: "int36"
-                                },
-                            ],
-                        },
-                        {
-                            name: "multiply()",
-                            inputs: [
-                                {
-                                    name: "ma",
-                                    type: "int36"
-                                },
-                                {
-                                    name: "mb",
-                                    type: "int36"
-                                },
-                            ],
-                        },
-                    ],
-                    "SafeMath.sol": [
-                        {
-                            name: "toBigNumber()",
-                            inputs: [
-                                {
-                                    name: "number",
-                                    type: "int36"
-                                },
-                            ],
-                        },
-                    ]
-                },
-            });
-        }, 1000);
+                contracts: props.contracts
+            };
+        }
+
+        return null;
     }
 
     handleInputChange = (value, field) => {
@@ -120,10 +73,12 @@ class Debugger extends Component {
     };
 
     handleSelectContract = (value, field) => {
-        const {methods} = this.state;
+        const {contracts} = this.state;
+
+        const selectedContact = contracts.find(contract => contract.name === value);
 
         this.setState({
-            selectedContractMethods: methods[value],
+            selectedContractMethods: selectedContact.methods,
             selectedMethod: null,
             selectedMethodInputs: [],
             methodInputs: {},
@@ -211,7 +166,7 @@ class Debugger extends Component {
                             </div>
                         </div>)}
                     </div>}
-                    <Button disabled={!this.isFormValid()} color="orange" onClick={this.sendTransaction}>
+                    <Button size="large" disabled={!this.isFormValid()} color="orange" onClick={this.sendTransaction}>
                         <span>Send Transaction</span>
                     </Button>
                     {(sendingTransaction || !!transactionResult) && <div className="TransactionResultWrapper">

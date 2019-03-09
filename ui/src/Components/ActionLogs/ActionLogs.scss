@@ -29,6 +29,7 @@
 
   .LogsContent {
     grid-area: logs;
+    overflow-y: auto;
   }
 
   .LogsWrapper {

@@ -13,7 +13,12 @@
     overflow-y: auto;
   }
 
-  .DebuggerLoader {}
+  .DebuggerLoader {
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   .MethodInputsWrapper {
     margin-bottom: 20px;

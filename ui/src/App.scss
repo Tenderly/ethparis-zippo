@@ -6,7 +6,7 @@
   height: 100%;
   display: grid;
   grid-template-columns: 400px 1fr;
-  grid-template-rows: 1fr;
+  grid-template-rows: 100vh;
   grid-template-areas: "debugger logger";
   background-color: $Dark300;
   color: $White;
