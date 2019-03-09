@@ -1,4 +1,21 @@
 .Header {
   grid-area: header;
   background-color: #012345;
+  display: flex;
+  justify-content: space-between;
+
+  .LogoWrapper {
+    padding: 10px;
+  }
+
+  .MainWrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .ActionsWrapper {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+  }
 }

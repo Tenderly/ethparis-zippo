@@ -1,0 +1,19 @@
+@import "../../Common/styles";
+
+.Button {
+  color: $White;
+  font-size: 14px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: 0.15s;
+
+  &.invisible {
+    border: 1px solid $White;
+    border-radius: 4px;
+    background-color: transparent;
+
+    &:hover {
+      background-color: transparentize($Black, 0.5);
+    }
+  }
+}
