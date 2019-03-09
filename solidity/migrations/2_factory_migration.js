@@ -1,9 +1,6 @@
 const Factory = artifacts.require("Factory");
 
-let yaml = require('js-yaml');
-let fs   = require('fs');
-
-let config = yaml.safeLoad(fs.readFileSync(__dirname + '/../zippo.yaml', 'utf8'));
+let config = require('../zippo.json');
 
 module.exports = async (deployer) => {
   await deployer.deploy(Factory);
