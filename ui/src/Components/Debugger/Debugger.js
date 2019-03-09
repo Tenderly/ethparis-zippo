@@ -94,6 +94,16 @@ class Debugger extends Component {
         });
     };
 
+    isFormValid = () => {
+        const {selectedContract, selectedMethod, methodInputs} = this.state;
+
+        if (!selectedContract || !selectedMethod) {
+            return false;
+        }
+
+        return true;
+    };
+
     handleSelectContract = (value, field) => {
         const {methods} = this.state;
 
@@ -107,10 +117,12 @@ class Debugger extends Component {
     handleSelectContractMethod = (value, field) => {
         const {selectedContractMethods} = this.state;
 
-        const selectMethod = selectedContractMethods.find(method => method.name === value);
+        const selectedMethod = selectedContractMethods.find(method => method.name === value);
+
+        console.log(selectedMethod, selectedMethod.inputs);
 
         this.setState({
-            selectedMethodInputs: selectMethod.inputs,
+            selectedMethodInputs: selectedMethod.inputs,
         });
 
         this.handleInputChange(value, field);
@@ -129,9 +141,19 @@ class Debugger extends Component {
                     <Loader/>
                 </div>}
                 {initiallyLoaded && <div>
-                    <Select value={selectedContract} options={contracts} field="selectedContract" onChange={this.handleSelectContract} label="Contract" placeholder="Select contract"/>
-                    <Select value={selectedMethod} options={selectedContractMethods} field="selectedMethod" onChange={this.handleSelectContractMethod} label="Method" placeholder="Select contract method" disabled={!!selectedContract}/>
-                    <Button disabled={true} color="orange" onClick={this.sendTransaction}>
+                    <Select value={selectedContract}
+                            options={contracts}
+                            field="selectedContract"
+                            onChange={this.handleSelectContract}
+                            label="Contract"
+                            placeholder="Select contract"/>
+                    <Select value={selectedMethod}
+                            options={selectedContractMethods}
+                            field="selectedMethod"
+                            onChange={this.handleSelectContractMethod}
+                            label="Method" placeholder="Select contract method"
+                            disabled={!selectedContract}/>
+                    <Button disabled={!this.isFormValid()} color="orange" onClick={this.sendTransaction}>
                         <span>Send Transaction</span>
                     </Button>
                 </div>}
