@@ -27,13 +27,13 @@ func GetTruffleConfig(projectDir string) (*Config, error) {
 		console.log(JSON.stringify(config));
 	`, trufflePath)).CombinedOutput()
 	if err != nil {
-		return nil, fmt.Errorf("cannot find truffle.js, tried path: %s", trufflePath)
+		return nil, fmt.Errorf("cannot find truffle-config.js, tried path: %s", trufflePath)
 	}
 
 	var truffleConfig Config
 	err = json.Unmarshal(data, &truffleConfig)
 	if err != nil {
-		return nil, fmt.Errorf("cannot read truffle.js")
+		return nil, fmt.Errorf("cannot read truffle-config.js")
 	}
 
 	if truffleConfig.BuildDirectory == "" {

@@ -8,6 +8,7 @@ import (
 	"github.com/tenderly/solidity-hmr/truffle"
 	"log"
 	"net/http"
+	"path/filepath"
 )
 
 var (
@@ -50,7 +51,7 @@ func serveWs(w http.ResponseWriter, r *http.Request) {
 	go server.writePump()
 	go server.readPump()
 
-	contracts, err := truffle.GetTruffleContracts(config.BuildDirectory, "1337")
+	contracts, err := truffle.GetTruffleContracts(filepath.Join(config.ProjectDirectory, config.BuildDirectory), "1337")
 	if err != nil {
 		panic(fmt.Sprintf("unable to fetch contracts from build directory: %s", err))
 	}
@@ -78,12 +79,12 @@ func serveWs(w http.ResponseWriter, r *http.Request) {
 // The application runs readPump in assets per-connection goroutine. The application
 // ensures that there is at most one reader on assets connection by executing all
 // reads from this goroutine.
-func (c *Server) readPump() {
+func (s *Server) readPump() {
 	defer func() {
-		c.conn.Close()
+		s.conn.Close()
 	}()
 	for {
-		_, message, err := c.conn.ReadMessage()
+		_, message, err := s.conn.ReadMessage()
 		if err != nil {
 			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
 				log.Printf("error: %v", err)
@@ -99,14 +100,14 @@ func (c *Server) readPump() {
 // A goroutine running writePump is started for each connection. The
 // application ensures that there is at most one writer to assets connection by
 // executing all writes from this goroutine.
-func (c *Server) writePump() {
+func (s *Server) writePump() {
 	defer func() {
-		c.conn.Close()
+		s.conn.Close()
 	}()
 	for {
 		select {
-		case message := <-c.send:
-			c.conn.WriteMessage(websocket.TextMessage, message)
+		case message := <-s.send:
+			s.conn.WriteMessage(websocket.TextMessage, message)
 		}
 	}
 }

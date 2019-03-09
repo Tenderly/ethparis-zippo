@@ -24,9 +24,11 @@ func main() {
 
 	initializeWatcher()
 
+	port := 8080
 	r := mux.NewRouter()
 	r.HandleFunc("/ws", serveWs)
-	address := fmt.Sprintf(":%v", 80)
+	fmt.Println(fmt.Sprintf("starting server on port %d", port))
+	address := fmt.Sprintf(":%v", port)
 	panic(http.ListenAndServe(address, r))
 }
 
