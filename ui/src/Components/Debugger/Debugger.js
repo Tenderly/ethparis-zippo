@@ -36,7 +36,7 @@ class Debugger extends Component {
                     },
                     {
                         name: "SafeMath.sol",
-                        address: "0x6B6220677b93E8fc9dC3ffE582E481B7A56c79a9",
+                        address: "0x4cb5442e13a7b269328f490a75d65aa4ca2883cb",
                     },
                 ],
                 methods: {
