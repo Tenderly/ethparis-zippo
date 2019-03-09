@@ -1,0 +1,9 @@
+{
+  "name": "solidity-hmr-ui",
+  "version": "0.0.1",
+  "description": "User Interface for the Solidity HMR development tool.",
+  "main": "index.js",
+  "repository": "https://github.com/Tenderly/solidity-hmr",
+  "license": "Apache-2.0",
+  "private": false
+}
