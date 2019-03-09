@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/fsnotify/fsnotify"
 	"github.com/gorilla/mux"
+	"github.com/tenderly/solidity-hmr/client"
 	"github.com/tenderly/solidity-hmr/truffle"
 	"net/http"
 	"os"
@@ -15,7 +16,7 @@ import (
 var config *truffle.Config
 
 const (
-	port = 8080
+	port      = 8080
 	networkID = "1337"
 )
 
@@ -25,6 +26,7 @@ func main() {
 		panic("unable to get project root")
 	}
 
+	configInit()
 	config, err = truffle.GetTruffleConfig(filepath.Join(root, "solidity"))
 	if err != nil {
 		panic(fmt.Sprintf("unable to find truffle config: %s", err))
@@ -34,6 +36,7 @@ func main() {
 
 	r := mux.NewRouter()
 	r.HandleFunc("/ws", serveWs)
+
 	fmt.Println(fmt.Sprintf("starting server on port %d", port))
 	address := fmt.Sprintf(":%v", port)
 	panic(http.ListenAndServe(address, r))
@@ -52,11 +55,30 @@ func initializeWatcher() {
 
 	for {
 		select {
-		case event := <- watcher.Events:
+		case event := <-watcher.Events:
 			{
 				if event.Op != fsnotify.Write {
 					continue
 				}
+
+				configInit()
+				contractsConfig := GetConfig()
+
+				for k, contract := range contractsConfig {
+					if contract.NetworkID != "1337" {
+						client, err := client.Dial(contract.Url)
+						if err != nil {
+							panic("unable to connect to ethereum node")
+						}
+
+						code, err := client.GetCode(contract.Address)
+
+						contract.Code = *code
+						contractsConfig[k] = contract
+					}
+				}
+
+				SaveConfig(contractsConfig)
 
 				cmd := exec.Command("truffle", "migrate --reset")
 				cmd.Dir = filepath.Join(config.ProjectDirectory)
@@ -75,6 +97,16 @@ func initializeWatcher() {
 
 					if server.conn != nil {
 						contracts, _ := truffle.GetTruffleContracts(filepath.Join(config.ProjectDirectory, config.BuildDirectory), networkID)
+
+						for _, contract := range contracts {
+							contractsConfig[contract.Name] = &DeploymentInformation{
+								NetworkID: networkID,
+								Address:   contract.Networks[networkID].Address,
+								Local:     true,
+								Code:      "",
+							}
+						}
+
 						contractsJson, _ := json.Marshal(contracts)
 
 						data, _ := json.Marshal(NewNewVersion(contractsJson))
@@ -84,7 +116,7 @@ func initializeWatcher() {
 				}
 
 			}
-		case err := <- watcher.Errors:
+		case err := <-watcher.Errors:
 			{
 				if server.conn != nil {
 					data, _ := json.Marshal(NewServerError(err))

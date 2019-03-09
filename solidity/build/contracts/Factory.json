@@ -479,12 +479,12 @@
     "1337": {
       "events": {},
       "links": {},
-      "address": "0x20698e3b8563b5f0EC3e349e49B017b94749064C",
-      "transactionHash": "0x3a7c2ef60ff12fd65492c569704120e1ad729b13333f13c18e55a64fcb34cd31"
+      "address": "0x2c5390081f2EC2b21CCf4DbFDEE15e889FF93589",
+      "transactionHash": "0xa7863cabcbe0a2aead4aa2bb90ea3e372ac39eb5df847a13702154f44017ad06"
     }
   },
   "schemaVersion": "3.0.2",
-  "updatedAt": "2019-03-09T15:43:57.021Z",
+  "updatedAt": "2019-03-09T20:10:34.720Z",
   "devdoc": {
     "methods": {}
   },
