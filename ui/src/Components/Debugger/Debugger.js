@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import './Debugger.scss';
+import Loader from "../Loader/Loader";
 
 class Debugger extends Component {
     constructor(props) {
@@ -95,7 +96,9 @@ class Debugger extends Component {
 
         return (
             <div className="Debugger">
-                {!initiallyLoaded && <div>Loading...</div>}
+                {!initiallyLoaded && <div>
+                    <Loader/>
+                </div>}
                 {initiallyLoaded && <div>qwe</div>}
             </div>
         );
