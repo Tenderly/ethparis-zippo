@@ -154,7 +154,7 @@ class Debugger extends Component {
                             onChange={this.handleSelectContractMethod}
                             label="Method" placeholder="Select contract method"
                             disabled={!selectedContract || sendingTransaction}/>
-                    {(!!selectedMethod && selectedMethodInputs.length) && <div className="MethodInputsWrapper">
+                    {(!!selectedMethod && !!selectedMethodInputs.length) && <div className="MethodInputsWrapper">
                         <div className="InputsHeading">Method Inputs</div>
                         {selectedMethodInputs.map(methodInput => <div key={methodInput.name} className="MethodInputItem">
                             <div className="InputName">{methodInput.name}</div>
