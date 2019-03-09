@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import './Header.scss';
 
-import ZippoLogo from '../../Images/DarkZippoLogo.svg';
+import ZippoLogo from '../../Images/ColoredDarkZippoLogo.svg';
 import Button from "../Button/Button";
 import Icon from "../Icon/Icon";
 

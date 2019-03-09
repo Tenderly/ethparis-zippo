@@ -131,7 +131,7 @@ class Debugger extends Component {
                 {initiallyLoaded && <div>
                     <Select value={selectedContract} options={contracts} field="selectedContract" onChange={this.handleSelectContract} label="Contract" placeholder="Select contract"/>
                     <Select value={selectedMethod} options={selectedContractMethods} field="selectedMethod" onChange={this.handleSelectContractMethod} label="Method" placeholder="Select contract method" disabled={!!selectedContract}/>
-                    <Button onClick={this.sendTransaction}>
+                    <Button disabled={true} color="orange" onClick={this.sendTransaction}>
                         <span>Send Transaction</span>
                     </Button>
                 </div>}

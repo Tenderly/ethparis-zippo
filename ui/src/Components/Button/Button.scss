@@ -8,6 +8,8 @@
   transition: 0.15s;
   display: flex;
   align-items: center;
+  border: 1px solid transparent;
+  border-radius: 4px;
 
   span + .ZippoIcon {
     margin-left: 6px;
@@ -18,12 +20,25 @@
   }
 
   &.invisible {
-    border: 1px solid $White;
-    border-radius: 4px;
+    border-color: $White;
     background-color: transparent;
 
     &:hover {
       background-color: transparentize($Black, 0.5);
     }
+  }
+
+  &.orange {
+    border-color: $Orange200;
+    background-color: lighten($Orange200, 4);
+
+    &:hover {
+      background-color: $Orange200;
+    }
+  }
+
+  &.disabled, &[disabled], &:disabled {
+    opacity: 0.75;
+    cursor: no-drop;
   }
 }
