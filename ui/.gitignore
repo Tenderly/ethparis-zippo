@@ -8,8 +8,8 @@
 # testing
 /coverage
 
-# production
-/build
+# production commit build because of serving with cli
+# /build
 
 # misc
 .DS_Store

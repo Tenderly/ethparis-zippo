@@ -1,0 +1,83 @@
+@import "../../Common/styles";
+
+.Select {
+  margin-bottom: 15px;
+  position: relative;
+
+  .Label {
+    margin-bottom: 5px;
+    padding: 0 10px;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+
+  .CurrentSelection {
+    cursor: pointer;
+    padding: 8px 10px;
+    border: 1px solid $Dark100;
+    font-size: 14px;
+    background-color: $Dark400;
+    border-radius: 5px;
+    transition: 0.2s;
+
+    .Placeholder {
+      opacity: 0.75;
+    }
+    .Value {
+      font-weight: 500;
+    }
+
+    &:hover {
+      background-color: darken($Dark400, 2);
+    }
+  }
+
+  .SelectDropdown {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 100%;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: darken($Dark400, 2);
+    border: 1px solid $Dark100;
+    border-top: none;
+    z-index: 100;
+    padding: 10px 0;
+    font-size: 14px;
+    pointer-events: none;
+    opacity: 0;
+    transition: 0.2s;
+
+    .DropdownOption {
+      padding: 10px 10px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: transparentize($Black, 0.8);
+      }
+    }
+
+    .DropdownEmpty {
+      padding: 10px 10px;
+    }
+  }
+
+  &.Disabled {
+    .CurrentSelection {
+      cursor: no-drop;
+      opacity: 0.5;
+    }
+  }
+
+  &.Open {
+    .CurrentSelection {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    .SelectDropdown {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+}

@@ -1,7 +1,25 @@
 @import "../../Common/styles";
 
 .InputWrapper {
-  .Input {
+  width: 100%;
 
+  .Input {
+    color: $White;
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid $Dark100;
+    font-size: 14px;
+    background-color: $Dark400;
+    border-radius: 5px;
+    transition: 0.2s;
+
+    &:hover, &:focus {
+      background-color: darken($Dark400, 2);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $Dark200;
+    }
   }
 }

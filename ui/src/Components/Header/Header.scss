@@ -1,11 +1,17 @@
+@import "../../Common/styles";
+
 .Header {
-  grid-area: header;
-  background-color: #012345;
+  background-color: $Dark400;
+  grid-area: debugger-header;
   display: flex;
   justify-content: space-between;
 
   .LogoWrapper {
-    padding: 10px 12px;
+    padding: 8px 12px;
+
+    img {
+      display: block;
+    }
   }
 
   .MainWrapper {

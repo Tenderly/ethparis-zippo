@@ -6,15 +6,19 @@
     "classnames": "^2.2.6",
     "highlight.js": "^9.15.6",
     "highlightjs-solidity": "^1.0.6",
+    "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "node-sass": "^4.11.0",
     "prop-types": "^15.7.2",
+    "rc-slider": "^8.6.6",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-outside-click-handler": "^1.2.2",
+    "react-redux": "^6.0.1",
     "react-scripts": "2.1.8",
-    "web3": "^1.0.0-beta.48",
-    "ws": "^6.2.0"
+    "react-websocket": "^2.0.1",
+    "redux": "^4.0.1",
+    "web3": "^1.0.0-beta.48"
   },
   "scripts": {
     "start": "react-scripts start",

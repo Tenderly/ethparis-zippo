@@ -1,0 +1,5 @@
+theme: jekyll-theme-cayman
+title: Zippo
+description: Hot Module Replacement (HMR) for local Solidity smart contact development
+show_downloads: true
+google_analytics: UA-125013494-3

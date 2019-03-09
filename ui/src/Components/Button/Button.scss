@@ -24,7 +24,7 @@
     background-color: transparent;
 
     &:hover {
-      background-color: transparentize($Black, 0.5);
+      background-color: transparentize($Black, 0.75);
     }
   }
 
@@ -35,6 +35,12 @@
     &:hover {
       background-color: $Orange200;
     }
+  }
+
+  &.large {
+    font-size: 16px;
+    padding: 8px 15px;
+    border-radius: 5px;
   }
 
   &.disabled, &[disabled], &:disabled {

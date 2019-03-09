@@ -12,13 +12,13 @@ class Header extends Component {
             <div className="Header">
                 <div className="MainWrapper">
                     <div className="LogoWrapper">
-                        <img src={ZippoLogo} height={40} alt=""/>
+                        <img src={ZippoLogo} height={44} alt=""/>
                     </div>
                 </div>
                 <div className="ActionsWrapper">
                     <Button>
                         <Icon icon="refresh-cw"/>
-                        <span>Reload</span>
+                        <span>Sync</span>
                     </Button>
                 </div>
             </div>

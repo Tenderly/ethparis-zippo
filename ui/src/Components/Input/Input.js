@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import './Input.scss';
+
 class Input extends Component {
     handleInputChange = (event) => {
         const {disabled, onChange, field} = this.props;
@@ -14,7 +16,7 @@ class Input extends Component {
     };
 
     render() {
-        const {field, value, label, disabled, className} = this.props;
+        const {placeholder, field, value, label, disabled, className} = this.props;
 
         return (
             <div className={classNames(
@@ -22,8 +24,8 @@ class Input extends Component {
                 className,
                 {"disabled": disabled,}
             )}>
-                {!label && <label htmlFor={`input-${field}`} className="InputLabel">{label}</label>}
-                <input id={`input-${field}`} disabled={disabled} onChange={this.handleInputChange} type="text" className="Input" value={value}/>
+                {!!label && <label htmlFor={`input-${field}`} className="InputLabel">{label}</label>}
+                <input placeholder={placeholder} id={`input-${field}`} disabled={disabled} onChange={this.handleInputChange} type="text" className="Input" value={value || ''}/>
             </div>
         );
     }
@@ -33,7 +35,7 @@ Input.propTypes = {
     onChange: PropTypes.func.isRequired,
     field: PropTypes.string.isRequired,
     label: PropTypes.string,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.string,
     placeholder: PropTypes.string,
 };
 
