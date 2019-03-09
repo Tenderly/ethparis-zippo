@@ -4,6 +4,7 @@ import './Header.scss';
 
 import ZippoLogo from '../../Images/DarkZippoLogo.svg';
 import Button from "../Button/Button";
+import Icon from "../Icon/Icon";
 
 class Header extends Component {
     render() {
@@ -16,6 +17,7 @@ class Header extends Component {
                 </div>
                 <div className="ActionsWrapper">
                     <Button>
+                        <Icon icon="refresh-cw"/>
                         <span>Reload</span>
                     </Button>
                 </div>

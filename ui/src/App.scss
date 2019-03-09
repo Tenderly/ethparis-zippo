@@ -1,3 +1,5 @@
+@import "./Common/styles";
+
 .App {
   overflow: hidden;
   width: 100%;
@@ -6,5 +8,6 @@
   grid-template-columns: 40% 60%;
   grid-template-rows: 60px 1fr;
   grid-template-areas: "header header" "debugger logger";
-  background-color: #123456;
+  background-color: $Dark400;
+  color: $White;
 }

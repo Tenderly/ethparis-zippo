@@ -6,6 +6,16 @@
   padding: 5px 12px;
   cursor: pointer;
   transition: 0.15s;
+  display: flex;
+  align-items: center;
+
+  span + .ZippoIcon {
+    margin-left: 6px;
+  }
+
+  .ZippoIcon + span {
+    margin-left: 6px;
+  }
 
   &.invisible {
     border: 1px solid $White;
