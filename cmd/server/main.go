@@ -7,6 +7,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/tenderly/solidity-hmr/etherscan"
 	"github.com/tenderly/solidity-hmr/truffle"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"os/exec"
@@ -19,7 +20,6 @@ const (
 	port      = 8080
 	networkID = "1337"
 )
-
 
 func main() {
 	root, err := os.Getwd()
@@ -70,10 +70,12 @@ func initializeWatcher() {
 
 						conf := etherscan.NewConfig(contract.NetworkID)
 
-						bytecode := etherscan.GetContract(contract.Address, conf)
+						contractSource := etherscan.GetContract(contract.Address, conf)
 
-						contract.Code = "0x" + bytecode
+						contract.Code = "0x" + contractSource.Bytecode
 						contractsConfig[k] = contract
+
+						ioutil.WriteFile(filepath.Join(config.ProjectDirectory, "contracts", contractSource.Name + ".sol"), []byte(contractSource.Source), 0644)
 					}
 				}
 
@@ -101,7 +103,6 @@ func initializeWatcher() {
 							contractsConfig[contract.Name] = &DeploymentInformation{
 								NetworkID: networkID,
 								Address:   contract.Networks[networkID].Address,
-								Local:     true,
 								Code:      "",
 							}
 						}

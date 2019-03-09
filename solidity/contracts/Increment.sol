@@ -5,7 +5,7 @@ contract Increment {
     uint public i;
 
     function increment() public {
-        sum = sum + i;
+        sum = sum + i; 
     }
 
     function setIncrement(uint _i) public {

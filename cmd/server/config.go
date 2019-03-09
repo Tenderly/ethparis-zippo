@@ -13,9 +13,7 @@ type DeploymentInformation struct {
 	Name      string `json:"name" yaml:"name"`
 	NetworkID string `json:"network_id" yaml:"network_id"`
 	Address   string `json:"address" yaml:"address"`
-	Local     bool   `json:"local" yaml:"local"`
 	Code      string `json:"code" yaml:"code"`
-	Url       string `json:"url" yaml:"url"`
 }
 
 var defaults = map[string]interface{}{
@@ -70,12 +68,6 @@ func GetConfig() map[string]*DeploymentInformation {
 		}
 		if value, ok := values["address"]; ok {
 			deploymentInformations[k].Address = value.(string)
-		}
-		if value, ok := values["local"]; ok {
-			deploymentInformations[k].Local = value.(bool)
-		}
-		if value, ok := values["url"]; ok {
-			deploymentInformations[k].Url = value.(string)
 		}
 		if value, ok := values["name"]; ok {
 			deploymentInformations[k].Name = value.(string)
