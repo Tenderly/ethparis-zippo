@@ -71,18 +71,17 @@ class ActionLogs extends Component {
     };
 
     render() {
-        const {connected} = this.state;
-        const {logs} = this.props;
+        const {logs, connection} = this.props;
 
         return (
             <div className="ActionLogs">
                 <div className="LogsHeader">
-                    {!connected && <div className="ConnectionLoader">
+                    {!connection && <div className="ConnectionLoader">
                         <Icon icon="spinner"/>
                         <span>Connecting...</span>
                     </div>}
-                    {connected && <div className="ConnectionInformation">
-                        Connected to RPC: <span className="Network">Ganache (http://localhost:8545)</span>
+                    {!!connection && <div className="ConnectionInformation">
+                        Connected to RPC: <span className="Network">{connection.name} (http://{connection.url})</span>
                     </div>}
                 </div>
                 <div className="LogsContent">

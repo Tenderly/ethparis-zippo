@@ -71,6 +71,7 @@ class App extends Component {
             logs: [],
             contracts: [],
             contractsAbi: {},
+            connectionInfo: null,
         };
 
         EthereumClient.initialize();
@@ -114,6 +115,17 @@ class App extends Component {
         });
     };
 
+    setConnectionInfo = message => {
+        console.log(message);
+        this.setState({
+            connectionInfo: {
+                id: message.network_id,
+                name: message.network_name,
+                url: message.network_url,
+            }
+        });
+    };
+
     handleWebSocketMessage = (data) => {
         const messageData = JSON.parse(data);
 
@@ -123,6 +135,7 @@ class App extends Component {
                 this.addMessage(message);
                 this.addMessageContracts(message);
                 this.setContractAbi(messageData.data);
+                this.setConnectionInfo(messageData);
                 return;
             default:
                 console.log('unparsed message', messageData);
@@ -131,12 +144,12 @@ class App extends Component {
     };
 
     render() {
-        const {contracts, logs, contractsAbi} = this.state;
+        const {contracts, logs, contractsAbi, connectionInfo} = this.state;
 
         return (
             <div className="App">
                 <Debugger contracts={contracts} abi={contractsAbi}/>
-                <ActionLogs logs={logs}/>
+                <ActionLogs logs={logs} connection={connectionInfo}/>
                 <Websocket url={WS_URL}
                            onMessage={this.handleWebSocketMessage}/>
             </div>

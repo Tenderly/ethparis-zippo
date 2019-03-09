@@ -36,13 +36,13 @@ class EthereumClient {
                         from: web3Account,
                     }, callback)
                     .on('transactionHash', (hash) => {
-                        console.log('transactionHash', hash);
+                        // console.log('transactionHash', hash);
                     })
                     .on('confirmation', (confirmationNumber, receipt) => {
-                        console.log('confirmation', confirmationNumber, receipt);
+                        // console.log('confirmation', confirmationNumber, receipt);
                     })
                     .on('receipt', (receipt) => {
-                        console.log('receipt', receipt);
+                        // console.log('receipt', receipt);
                     })
                     .on('error', console.error);
             } else if (calledMethod.hasOwnProperty('call')) {
@@ -51,7 +51,7 @@ class EthereumClient {
                         from: web3Account,
                     }, callback)
                     .then((result) => {
-                        console.log('call result', result);
+                        // console.log('call result', result);
                     });
             }
 
