@@ -2,8 +2,6 @@ package etherscan
 
 import (
 	"fmt"
-
-	"github.com/bencicandrej/tenderly-core/src"
 )
 
 const (
@@ -20,14 +18,20 @@ var netMap = map[string]string{
 	"42": kovanBaseUrl,
 }
 
+type NetworkID string
+
+func NewNetworkID(id string) NetworkID {
+	return NetworkID(id)
+}
+
+func (id NetworkID) String() string {
+	return string(id)
+}
+
 type CrawlConfig struct {
 	EtherScanUrl        string
 	BaseUrl             string
-	NetworkID           tenderly.NetworkID
-	Page                int
-	PerPage             int
-	Force               bool
-	LastCrawledContract *tenderly.Contract
+	NetworkID           NetworkID
 }
 
 func NewConfig(net string) *CrawlConfig {
@@ -39,24 +43,6 @@ func NewConfig(net string) *CrawlConfig {
 	return &CrawlConfig{
 		EtherScanUrl:    baseUrl,
 		BaseUrl:         fmt.Sprintf("%s%s", baseUrl, "/contractsVerified/%d?ps=%d"),
-		NetworkID:       tenderly.NewNetworkID(net),
-		Page:            1,
-		PerPage:         100,
+		NetworkID:       NewNetworkID(net),
 	}
-
-}
-
-func (c *CrawlConfig) CurrentPage() string {
-	return fmt.Sprintf(c.BaseUrl, c.Page, c.PerPage)
-}
-
-func (c *CrawlConfig) NextPage() string {
-	c.Page++
-
-	return c.CurrentPage()
-}
-
-func (c *CrawlConfig) Reset() {
-	c.Page = 1
-	c.LastCrawledContract = nil
 }

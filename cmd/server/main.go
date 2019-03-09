@@ -12,6 +12,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 )
 
 var config *truffle.Config
@@ -29,13 +30,14 @@ func main() {
 	}
 
 	configInit()
-	config, err = truffle.GetTruffleConfig(filepath.Join(root, "solidity"))
+	config, err = truffle.GetTruffleConfig(filepath.Join(root, "../../solidity"))
 	if err != nil {
 		panic(fmt.Sprintf("unable to find truffle config: %s", err))
 	}
 
-	buildFrontend()
+	//buildFrontend() // it's hackathon, build folder is commited :)
 	go serverFrontend()
+	openBrowser("localhost:3000")
 	go initializeWatcher()
 
 	r := mux.NewRouter()
@@ -62,6 +64,21 @@ func serverFrontend() {
 	http.Handle("/", http.FileServer(http.Dir(filepath.Join(config.ProjectDirectory, "../ui/build"))))
 	fmt.Println(fmt.Sprintf("starting server on port %d", frontendPort))
 	panic(http.ListenAndServe(fmt.Sprintf(":%d", frontendPort), nil))
+}
+
+func openBrowser(url string) bool {
+	fmt.Println("open")
+	var args []string
+	switch runtime.GOOS {
+	case "darwin":
+		args = []string{"open"}
+	case "windows":
+		args = []string{"cmd", "/c", "start"}
+	default:
+		args = []string{"xdg-open"}
+	}
+	cmd := exec.Command(args[0], append(args[1:], url)...)
+	return cmd.Start() == nil
 }
 
 func initializeWatcher() {

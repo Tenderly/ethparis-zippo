@@ -22,11 +22,8 @@ var defaults = map[string]interface{}{
 
 var configName string
 var configPaths = []string{
+	"../../solidity",
 	"solidity",
-}
-
-func init() {
-	//flag.StringVar(&configName, "config", "config", "Configuration file name (without the extension)")
 }
 
 func configInit() {
