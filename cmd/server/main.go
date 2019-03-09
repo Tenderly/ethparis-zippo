@@ -26,7 +26,7 @@ func main() {
 
 	r := mux.NewRouter()
 	r.HandleFunc("/ws", serveWs)
-	address := fmt.Sprintf(":%v", 8080)
+	address := fmt.Sprintf(":%v", 80)
 	panic(http.ListenAndServe(address, r))
 }
 
