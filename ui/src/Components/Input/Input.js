@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import './Input.scss';
+
 class Input extends Component {
     handleInputChange = (event) => {
         const {disabled, onChange, field} = this.props;

@@ -14,7 +14,6 @@
   .CurrentSelection {
     cursor: pointer;
     padding: 8px 10px;
-    //border: 1px solid transparentize($White, 0.5);
     border: 1px solid $Dark100;
     font-size: 14px;
     background-color: $Dark400;
@@ -67,6 +66,7 @@
   &.Disabled {
     .CurrentSelection {
       cursor: no-drop;
+      opacity: 0.5;
     }
   }
 
