@@ -6,6 +6,7 @@ import './App.scss';
 import ActionLogs from "./Components/ActionLogs/ActionLogs";
 import Debugger from "./Components/Debugger/Debugger";
 import {WS_URL} from "./Common/constants";
+import EthereumClient from "./EthereumClient";
 
 function extractMethodsFromAbi(abi) {
     return abi.filter(data => data.type === 'function').map(func => {
@@ -53,6 +54,14 @@ class InitialMessage extends Message {
     }
 }
 
+class TransactionMessage extends Message {
+    constructor(message) {
+        super(message);
+
+    }
+
+}
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -61,6 +70,8 @@ class App extends Component {
             logs: [],
             contracts: [],
         };
+
+        EthereumClient.initialize();
     }
 
     addMessage = message => {
@@ -95,6 +106,7 @@ class App extends Component {
                 this.addMessageContracts(message);
                 return;
             default:
+                console.log('unparsed message', messageData);
                 return;
         }
     };
