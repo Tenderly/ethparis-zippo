@@ -6,20 +6,26 @@ import (
 )
 
 type InitialMessage struct {
-	Level string          `json:"level"`
-	Time  time.Time       `json:"time"`
-	Type  string          `json:"type"`
-	Ok    bool            `json:"ok"`
-	Data  json.RawMessage `json:"data"`
+	Level       string          `json:"level"`
+	Time        time.Time       `json:"time"`
+	Type        string          `json:"type"`
+	Ok          bool            `json:"ok"`
+	NetworkName string          `json:"network_name"`
+	NetworkId   string          `json:"network_id"`
+	NetworkUrl  string          `json:"network_url"`
+	Data        json.RawMessage `json:"data"`
 }
 
 func NewInitialMessage(ok bool, data ...json.RawMessage) InitialMessage {
 	return InitialMessage{
-		Level: "info",
-		Time:  time.Now(),
-		Type:  "initial_message",
-		Ok:    ok,
-		Data:  data[0],
+		Level:       "info",
+		Time:        time.Now(),
+		Type:        "initial_message",
+		Ok:          ok,
+		Data:        data[0],
+		NetworkName: "Geth/v1.9.0-unstable/darwin-amd64/go1.11.5",
+		NetworkId:   "1337",
+		NetworkUrl:  "127.0.0.1:8545",
 	}
 }
 

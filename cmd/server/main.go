@@ -17,8 +17,9 @@ import (
 var config *truffle.Config
 
 const (
-	port      = 8080
-	networkID = "1337"
+	port         = 8080
+	frontendPort = 3000
+	networkID    = "1337"
 )
 
 func main() {
@@ -33,6 +34,8 @@ func main() {
 		panic(fmt.Sprintf("unable to find truffle config: %s", err))
 	}
 
+	buildFrontend()
+	go serverFrontend()
 	go initializeWatcher()
 
 	r := mux.NewRouter()
@@ -41,6 +44,24 @@ func main() {
 	fmt.Println(fmt.Sprintf("starting server on port %d", port))
 	address := fmt.Sprintf(":%v", port)
 	panic(http.ListenAndServe(address, r))
+}
+
+func buildFrontend() {
+	cmd := exec.Command("yarn", "build")
+	cmd.Dir = filepath.Join(config.ProjectDirectory, "../ui")
+	fmt.Println("building frontend...")
+	err := cmd.Run()
+
+	if err != nil {
+		panic("unable to run frontend")
+	}
+	fmt.Println("finished building frontend")
+}
+
+func serverFrontend() {
+	http.Handle("/", http.FileServer(http.Dir(filepath.Join(config.ProjectDirectory, "../ui/build"))))
+	fmt.Println(fmt.Sprintf("starting server on port %d", frontendPort))
+	panic(http.ListenAndServe(fmt.Sprintf(":%d", frontendPort), nil))
 }
 
 func initializeWatcher() {
@@ -75,7 +96,7 @@ func initializeWatcher() {
 						contract.Code = "0x" + contractSource.Bytecode
 						contractsConfig[k] = contract
 
-						ioutil.WriteFile(filepath.Join(config.ProjectDirectory, "contracts", contractSource.Name + ".sol"), []byte(contractSource.Source), 0644)
+						ioutil.WriteFile(filepath.Join(config.ProjectDirectory, "contracts", contractSource.Name+".sol"), []byte(contractSource.Source), 0644)
 					}
 				}
 

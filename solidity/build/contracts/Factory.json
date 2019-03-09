@@ -461,12 +461,12 @@
     "1337": {
       "events": {},
       "links": {},
-      "address": "0xEDFDc9bABed159F5C1c0fF7B994AeA20ff3224f5",
-      "transactionHash": "0x0ab2e5d803c06473764daa304ab4c09f0c0b81098972888b3b1c6688da599169"
+      "address": "0xF030310146B7F0bC4161778CCd153caD01bc2676",
+      "transactionHash": "0x845e1d40c7aa3500e67b2b360207cd029bf91fc7738fa2d6c5907e1ddb5de8a2"
     }
   },
   "schemaVersion": "3.0.2",
-  "updatedAt": "2019-03-09T22:47:27.184Z",
+  "updatedAt": "2019-03-09T23:02:20.091Z",
   "devdoc": {
     "methods": {}
   },
