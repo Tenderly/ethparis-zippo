@@ -34,7 +34,7 @@ class EthereumClient {
                 calledMethod
                     .send({
                         from: web3Account,
-                    }, callback)
+                    })
                     .on('transactionHash', (hash) => {
                         // console.log('transactionHash', hash);
                     })
@@ -42,9 +42,12 @@ class EthereumClient {
                         // console.log('confirmation', confirmationNumber, receipt);
                     })
                     .on('receipt', (receipt) => {
+                        callback(false, receipt);
                         // console.log('receipt', receipt);
                     })
-                    .on('error', console.error);
+                    .on('error', error => {
+                        callback(error);
+                    });
             } else if (calledMethod.hasOwnProperty('call')) {
                 calledMethod
                     .call({

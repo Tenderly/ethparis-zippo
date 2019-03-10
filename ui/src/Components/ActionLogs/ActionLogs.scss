@@ -59,7 +59,7 @@
   }
 
   .LogsWrapper {
-    padding: 20px 30px;
+    padding: 10px 15px;
   }
 
   .LogEntry {
@@ -67,6 +67,10 @@
     align-items: flex-start;
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: 0.2s;
 
     &:not(:last-child) {
       margin-bottom: 18px;
@@ -93,6 +97,18 @@
       padding: 10px 0;
       font-size: 12px;
 
+      .MainMessage {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .ZippoIcon {
+          font-size: 20px;
+          opacity: 0;
+          transition: 0.2s;
+        }
+      }
+
       .LogType {
         opacity: 0.75;
         margin-right: 10px;
@@ -102,6 +118,13 @@
     &.Error {
       .LogLevel, .MainMessage {
         color: $Red;
+      }
+    }
+
+    &:hover {
+      background-color: transparentize($Black, 0.9);
+      .MainMessage .ZippoIcon {
+        opacity: 1;
       }
     }
   }

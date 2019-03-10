@@ -52,16 +52,32 @@ class InitialMessage extends Message {
             description: '',
             contracts,
         };
+
+        this.meta = {
+            contracts,
+        };
     }
 }
 
-// class TransactionMessage extends Message {
-//     constructor(message) {
-//         super(message);
-//
-//     }
-//
-// }
+class TransactionMessage extends Message {
+    constructor(message) {
+        super({
+            level: message.level,
+            type: 'contract_transaction',
+        });
+
+        this.data = {
+            message: `Called ${message.method} in ${message.contract}`,
+            description: '',
+        };
+
+        this.meta = {
+            result: message.result,
+            inputs: message.methodInputs,
+        };
+    }
+
+}
 
 class App extends Component {
     constructor(props) {
@@ -116,14 +132,19 @@ class App extends Component {
     };
 
     setConnectionInfo = message => {
-        console.log(message);
         this.setState({
             connectionInfo: {
                 id: message.network_id,
                 name: message.network_name,
                 url: message.network_url,
-            }
+            },
         });
+    };
+
+    pushTransactionMessage = (messageData) => {
+        const message = new TransactionMessage(messageData);
+
+        this.addMessage(message);
     };
 
     handleWebSocketMessage = (data) => {
@@ -148,7 +169,7 @@ class App extends Component {
 
         return (
             <div className="App">
-                <Debugger contracts={contracts} abi={contractsAbi}/>
+                <Debugger contracts={contracts} abi={contractsAbi} onTransaction={this.pushTransactionMessage}/>
                 <ActionLogs logs={logs} connection={connectionInfo}/>
                 <Websocket url={WS_URL}
                            onMessage={this.handleWebSocketMessage}/>
