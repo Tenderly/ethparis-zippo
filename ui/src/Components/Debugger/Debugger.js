@@ -133,6 +133,14 @@ class Debugger extends Component {
                         inputs: methodInputs,
                         result: tx,
                     });
+                } else {
+                    onTransaction({
+                        level: 'error',
+                        method: selectedMethod,
+                        contract: selectedContract,
+                        inputs: methodInputs,
+                        result: tx,
+                    });
                 }
             }
 

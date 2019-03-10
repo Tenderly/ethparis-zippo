@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import classNames from 'classnames';
 import Moment from 'moment';
 
@@ -114,7 +114,10 @@ class ActionLogs extends Component {
                 </div>
                 <div className="LogsContent">
                     <div className="LogsWrapper">
-                        {logs.map(log => <Log log={log} key={log.timestamp}/>)}
+                        {logs.map(log => <Fragment key={log.timestamp}>
+                            <Log log={log}/>
+                            <div className="LogDivider"/>
+                        </Fragment>)}
                     </div>
                 </div>
             </div>

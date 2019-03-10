@@ -66,8 +66,16 @@ class TransactionMessage extends Message {
             type: 'contract_transaction',
         });
 
+        let messageText;
+
+        if (message.level === 'info') {
+            messageText = `Called ${message.method} in ${message.contract}`
+        } else {
+            messageText = `Transaction revert calling ${message.method} in ${message.contract}`
+        }
+
         this.data = {
-            message: `Called ${message.method} in ${message.contract}`,
+            message: messageText,
             description: '',
         };
 
