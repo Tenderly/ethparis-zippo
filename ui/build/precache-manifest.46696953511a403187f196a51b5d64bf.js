@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "1e3a13d917c2523cd4b0",
+    "revision": "b06b70f2e529a7ce37ef",
     "url": "/static/css/main.dca9e6ee.chunk.css"
   },
   {
-    "revision": "1e3a13d917c2523cd4b0",
-    "url": "/static/js/main.9e3b0890.chunk.js"
+    "revision": "b06b70f2e529a7ce37ef",
+    "url": "/static/js/main.0c67ae71.chunk.js"
   },
   {
     "revision": "fdfcfda2d9b1bf31db52",
@@ -40,7 +40,7 @@ self.__precacheManifest = [
     "url": "/static/media/ZippoIcons.aef06a4a.svg"
   },
   {
-    "revision": "5a94608e927bdb22c45a502365f58469",
+    "revision": "7081e5c5d8d440f3d411a5c72bdb6aaf",
     "url": "/index.html"
   }
 ];
