@@ -11,6 +11,10 @@ class Log extends Component {
             return 'Error';
         }
 
+        if (log.type === 'compile_success') {
+            return 'Success'
+        }
+
         return '';
     };
 

@@ -33,6 +33,11 @@ class Debugger extends Component {
                 initiallyLoaded: true,
                 contracts: props.contracts
             };
+        } else if (props.contracts && !!props.contracts.length) {
+            return {
+                ...state,
+                contracts: props.contracts
+            };
         }
 
         return null;

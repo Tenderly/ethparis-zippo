@@ -123,6 +123,12 @@
       }
     }
 
+    &.Success {
+      .LogLevel, .MainMessage {
+        color: $Green;
+      }
+    }
+
     &:hover {
       background-color: transparentize($Black, 0.9);
       .MainMessage .ZippoIcon {

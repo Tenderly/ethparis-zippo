@@ -129,6 +129,42 @@ class CompileFailureMessage extends Message {
 
 }
 
+class CompileSuccessMessage extends Message {
+    constructor(message) {
+        super({
+            level: 'info',
+            type: 'compile_success',
+        });
+
+        const contracts = Object.values(message.data).map(contract => {
+            const networkId = Object.keys(contract.networks)[0];
+            const networkInfo = Object.values(contract.networks)[0];
+
+            return {
+                contractName: contract.contractName,
+                fileName: `${contract.contractName}.sol`,
+                name: `${contract.contractName}.sol`,
+                networkId,
+                address: networkInfo.address.toLowerCase(),
+                creatorTx: networkInfo.transactionHash,
+                methods: extractMethodsFromAbi(contract.abi),
+            }
+        });
+
+        const contractsDeployed = `[${contracts.map(c => c.name).join(', ')}]`;
+
+        this.data = {
+            message: `Successfully compiled and rewired contracts: ${contractsDeployed}`,
+            description: '',
+        };
+
+        this.meta = {
+            contracts,
+        }
+    }
+
+}
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -154,13 +190,19 @@ class App extends Component {
         })
     };
 
-    addMessageContracts = message => {
+    addMessageContracts = messageContracts => {
         const {contracts} = this.state;
+
+        const filteredContracts = contracts.filter(c => {
+            const newContract = messageContracts.find(nc => c.name === nc.name);
+
+            return !newContract;
+        });
 
         this.setState({
             contracts: [
-                ...contracts,
-                ...message.data.contracts,
+                ...filteredContracts,
+                ...messageContracts,
             ]
         })
     };
@@ -204,7 +246,7 @@ class App extends Component {
             case 'initial_message':
                 const message = new InitialMessage(messageData);
                 this.addMessage(message);
-                this.addMessageContracts(message);
+                this.addMessageContracts(message.meta.contracts);
                 this.setContractAbi(messageData.data);
                 this.setConnectionInfo(messageData);
                 return;
@@ -213,6 +255,11 @@ class App extends Component {
                 return;
             case 'compile_failed':
                 this.addMessage(new CompileFailureMessage(messageData));
+                return;
+            case 'new_version':
+                const newMessage = new CompileSuccessMessage(messageData);
+                this.addMessageContracts(newMessage.meta.contracts);
+                this.setContractAbi(messageData.data);
                 return;
             default:
                 console.log('unparsed message', messageData);
