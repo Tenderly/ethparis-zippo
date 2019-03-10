@@ -6,6 +6,8 @@
 
 Hot Module Replacement (HMR) for Solidity smart contract development. Originally developed on the EthParis 2019 Hackathon.
 
+![](screen.jpg)
+
 ## Installation
 
 ```
