@@ -12,7 +12,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"runtime"
+	"strings"
 )
 
 var config *truffle.Config
@@ -37,7 +37,7 @@ func main() {
 
 	//buildFrontend() // it's hackathon, build folder is commited :)
 	go serverFrontend()
-	openBrowser("localhost:3000")
+	//open.Start("http://127.0.0.1:3000")
 	go initializeWatcher()
 
 	r := mux.NewRouter()
@@ -66,21 +66,6 @@ func serverFrontend() {
 	panic(http.ListenAndServe(fmt.Sprintf(":%d", frontendPort), nil))
 }
 
-func openBrowser(url string) bool {
-	fmt.Println("open")
-	var args []string
-	switch runtime.GOOS {
-	case "darwin":
-		args = []string{"open"}
-	case "windows":
-		args = []string{"cmd", "/c", "start"}
-	default:
-		args = []string{"xdg-open"}
-	}
-	cmd := exec.Command(args[0], append(args[1:], url)...)
-	return cmd.Start() == nil
-}
-
 func initializeWatcher() {
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
@@ -103,6 +88,9 @@ func initializeWatcher() {
 				configInit()
 				contractsConfig := GetConfig()
 
+				var contracts []*DeploymentInformation
+				contracts = append(contracts, contractsConfig[strings.ToLower(event.Name[strings.LastIndex(event.Name, "/")+1:len(event.Name)-4])])
+
 				for k, contract := range contractsConfig {
 					if contract.NetworkID != "1337" {
 
@@ -113,8 +101,19 @@ func initializeWatcher() {
 						contract.Code = "0x" + contractSource.Bytecode
 						contractsConfig[k] = contract
 
+						contracts = append(contracts, &DeploymentInformation{
+							Name: contractSource.Name,
+							NetworkID: contract.NetworkID,
+							Address: contract.Address,
+						})
+
 						ioutil.WriteFile(filepath.Join(config.ProjectDirectory, "contracts", contractSource.Name+".sol"), []byte(contractSource.Source), 0644)
 					}
+				}
+
+				if server != nil && server.conn != nil {
+					data, _ := json.Marshal(NewCompile(contracts))
+					server.send <- data
 				}
 
 				SaveConfig(contractsConfig)

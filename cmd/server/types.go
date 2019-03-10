@@ -29,6 +29,22 @@ func NewInitialMessage(ok bool, data ...json.RawMessage) InitialMessage {
 	}
 }
 
+type Compile struct {
+	Type string `json:"type"`
+	Contracts []DeploymentInformation `json:"contracts"`
+}
+
+func NewCompile(deploymentInformation []*DeploymentInformation) Compile {
+	var contracts []DeploymentInformation
+	for _, v := range deploymentInformation{
+		contracts = append(contracts, *v)
+	}
+	return Compile{
+		Type: "compiling",
+		Contracts: contracts,
+	}
+}
+
 type NewVersion struct {
 	Level string          `json:"level"`
 	Time  time.Time       `json:"time"`

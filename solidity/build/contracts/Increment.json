@@ -697,12 +697,12 @@
     "1337": {
       "events": {},
       "links": {},
-      "address": "0xffAb205645adF7Df5eE7E92cEbD48060Fe91B409",
-      "transactionHash": "0xf622e318f78048f7cd5cf2df3fe42303f012edcfc4bc6cc155eb3f16496913e8"
+      "address": "0xD9e88d27B577F8dc001e94b51c4B52eec3805867",
+      "transactionHash": "0x6c1d55d4ccedeaad4c2addbc35d5276a278265a91d47f4209295c88027307a87"
     }
   },
   "schemaVersion": "3.0.2",
-  "updatedAt": "2019-03-09T23:02:20.092Z",
+  "updatedAt": "2019-03-10T00:27:03.607Z",
   "devdoc": {
     "methods": {}
   },
