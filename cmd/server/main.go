@@ -19,7 +19,7 @@ var config *truffle.Config
 
 const (
 	port         = 8080
-	frontendPort = 3000
+	frontendPort = 9476
 	networkID    = "1337"
 )
 
