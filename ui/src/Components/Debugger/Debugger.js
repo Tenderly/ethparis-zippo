@@ -118,7 +118,7 @@ class Debugger extends Component {
 
         const transactionMethod = EthereumClient.getContract(
             abi[txContract.address], txContract.address
-        ).methods[selectedMethod.replace('()', '')];
+        ).methods[selectedMethod.replace('()', '').replace('[constant] ', '')];
 
         EthereumClient.sendTransaction(transactionMethod, Object.values(methodInputs), (error, tx) => {
             console.log(error, tx);
