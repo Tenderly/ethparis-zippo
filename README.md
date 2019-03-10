@@ -22,10 +22,6 @@ apt-get install zippo
 
 Before starting the geth server you will need to setup the `zippo.yaml` configuration file.
 
-```yaml
-
-```
-
 To read more about the the Zippo config file read the [configuration](#configuration) section.
 
 ```
