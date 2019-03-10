@@ -120,10 +120,9 @@ class Debugger extends Component {
             abi[txContract.address], txContract.address
         ).methods[selectedMethod.replace('()', '')];
 
-        console.log(abi, txContract.address, transactionMethod, selectedMethod);
 
         EthereumClient.sendTransaction(transactionMethod, Object.values(methodInputs), (error, tx) => {
-            console.log(error, tx);
+            // console.log(error, tx);
         });
 
         setTimeout(() => {
