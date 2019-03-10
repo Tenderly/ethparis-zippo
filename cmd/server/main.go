@@ -77,6 +77,9 @@ func initializeWatcher() {
 		panic(fmt.Sprintf("unable to add truffle build directory to watcher: %s", err))
 	}
 
+	configInit()
+	contractsConfig := GetConfig()
+
 	for {
 		select {
 		case event := <-watcher.Events:
@@ -84,9 +87,6 @@ func initializeWatcher() {
 				if event.Op != fsnotify.Write {
 					continue
 				}
-
-				configInit()
-				contractsConfig := GetConfig()
 
 				var changedContracts []*DeploymentInformation
 				changedContracts = append(changedContracts, contractsConfig[strings.ToLower(event.Name[strings.LastIndex(event.Name, "/")+1:len(event.Name)-4])])
@@ -106,11 +106,23 @@ func initializeWatcher() {
 							Name:      contractSource.Name,
 							NetworkID: contract.NetworkID,
 							Address:   contract.Address,
+							Code:      contract.Code,
 						}
 						changedContracts = append(changedContracts, otherNetworkContract)
 						otherNetworkContracts = append(otherNetworkContracts, otherNetworkContract)
 
 						ioutil.WriteFile(filepath.Join(config.ProjectDirectory, "changedContracts", contractSource.Name+".sol"), []byte(contractSource.Source), 0644)
+					} else {
+						contracts, _ := truffle.GetTruffleContracts(filepath.Join(config.ProjectDirectory, config.BuildDirectory), networkID)
+
+						for _, contract := range contracts {
+							contractsConfig[strings.ToLower(contract.Name)] = &DeploymentInformation{
+								NetworkID: networkID,
+								Address:   contract.Networks[networkID].Address,
+								Name:      contract.Name,
+								Code:      contract.Bytecode,
+							}
+						}
 					}
 				}
 
@@ -144,7 +156,7 @@ func initializeWatcher() {
 								NetworkID: networkID,
 								Address:   contract.Networks[networkID].Address,
 								Name:      contract.Name,
-								Code:      "",
+								Code:      contract.Bytecode,
 							}
 						}
 
