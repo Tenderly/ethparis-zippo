@@ -126,7 +126,8 @@
     &:hover {
       background-color: transparentize($Black, 0.9);
       .MainMessage .ZippoIcon {
-        opacity: 1;
+        opacity: 0.75;
+        color: $White;
       }
     }
   }

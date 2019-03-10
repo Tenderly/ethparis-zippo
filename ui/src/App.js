@@ -13,7 +13,8 @@ function extractMethodsFromAbi(abi) {
     return abi.filter(data => data.type === 'function').map(func => {
         return {
             ...func,
-            name: `${func.name}()`
+            constant: func.constant,
+            name: func.constant ? `[constant] ${func.name}` : `${func.name}()`,
         };
     });
 }
@@ -82,6 +83,47 @@ class TransactionMessage extends Message {
         this.meta = {
             result: message.result,
             inputs: message.methodInputs,
+        };
+    }
+
+}
+
+class CompilingMessage extends Message {
+    constructor(data) {
+        super({
+            level: 'info',
+            type: 'compiling_contracts',
+        });
+
+        const contractsChanged = `[${data.contracts.map(c => `${c.name}.sol`).join(', ')}]`;
+
+        this.data = {
+            message: `Changes detected in the following contracts: ${contractsChanged}`,
+            description: '',
+        };
+
+        this.meta = {
+            contracts: data.contracts,
+        };
+    }
+}
+
+class CompileFailureMessage extends Message {
+    constructor(data) {
+        super({
+            level: 'error',
+            type: 'compiler_failure',
+        });
+
+        console.log(data);
+
+        this.data = {
+            message: `Compiling contracts failed with message: ${data.err}`,
+            description: '',
+        };
+
+        this.meta = {
+            error: data.err,
         };
     }
 
@@ -165,6 +207,12 @@ class App extends Component {
                 this.addMessageContracts(message);
                 this.setContractAbi(messageData.data);
                 this.setConnectionInfo(messageData);
+                return;
+            case 'compiling':
+                this.addMessage(new CompilingMessage(messageData));
+                return;
+            case 'compile_failed':
+                this.addMessage(new CompileFailureMessage(messageData));
                 return;
             default:
                 console.log('unparsed message', messageData);
