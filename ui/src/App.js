@@ -258,6 +258,7 @@ class App extends Component {
                 return;
             case 'new_version':
                 const newMessage = new CompileSuccessMessage(messageData);
+                this.addMessage(newMessage);
                 this.addMessageContracts(newMessage.meta.contracts);
                 this.setContractAbi(messageData.data);
                 return;
