@@ -121,6 +121,15 @@ class Debugger extends Component {
 
         const txContract = contracts.find(contract => contract.name === selectedContract);
 
+        console.log(selectedMethod);
+
+        if (selectedMethod.includes('[constant] ')) {
+            const transactionProperty = EthereumClient.getContract(
+                abi[txContract.address], txContract.address
+            );
+
+            console.log(transactionProperty.methods.sum().call().then((error, result) => console.log('asd', error, result)));
+        }
         const transactionMethod = EthereumClient.getContract(
             abi[txContract.address], txContract.address
         ).methods[selectedMethod.replace('()', '').replace('[constant] ', '')];

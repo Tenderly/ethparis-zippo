@@ -49,12 +49,15 @@ class EthereumClient {
                         callback(error);
                     });
             } else if (calledMethod.hasOwnProperty('call')) {
-                calledMethod
+                method()
                     .call({
                         from: web3Account,
-                    }, callback)
+                    })
                     .then((result) => {
+                        callback(false, result);
                         // console.log('call result', result);
+                    }).catch(error => {
+                        callback(error);
                     });
             }
 
@@ -65,6 +68,10 @@ class EthereumClient {
             //         }, callback);
             //     });
         }
+    }
+
+    static getProperty(method, property, callback = () => {}) {
+
     }
 
     static getContract(contractAbi, address) {
