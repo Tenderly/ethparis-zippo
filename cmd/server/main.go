@@ -88,8 +88,9 @@ func initializeWatcher() {
 				configInit()
 				contractsConfig := GetConfig()
 
-				var contracts []*DeploymentInformation
-				contracts = append(contracts, contractsConfig[strings.ToLower(event.Name[strings.LastIndex(event.Name, "/")+1:len(event.Name)-4])])
+				var changedContracts []*DeploymentInformation
+				changedContracts = append(changedContracts, contractsConfig[strings.ToLower(event.Name[strings.LastIndex(event.Name, "/")+1:len(event.Name)-4])])
+				var otherNetworkContracts []*DeploymentInformation
 
 				for k, contract := range contractsConfig {
 					if contract.NetworkID != "1337" {
@@ -101,18 +102,20 @@ func initializeWatcher() {
 						contract.Code = "0x" + contractSource.Bytecode
 						contractsConfig[k] = contract
 
-						contracts = append(contracts, &DeploymentInformation{
-							Name: contractSource.Name,
+						otherNetworkContract := &DeploymentInformation{
+							Name:      contractSource.Name,
 							NetworkID: contract.NetworkID,
-							Address: contract.Address,
-						})
+							Address:   contract.Address,
+						}
+						changedContracts = append(changedContracts, otherNetworkContract)
+						otherNetworkContracts = append(otherNetworkContracts, otherNetworkContract)
 
-						ioutil.WriteFile(filepath.Join(config.ProjectDirectory, "contracts", contractSource.Name+".sol"), []byte(contractSource.Source), 0644)
+						ioutil.WriteFile(filepath.Join(config.ProjectDirectory, "changedContracts", contractSource.Name+".sol"), []byte(contractSource.Source), 0644)
 					}
 				}
 
 				if server != nil && server.conn != nil {
-					data, _ := json.Marshal(NewCompile(contracts))
+					data, _ := json.Marshal(NewCompile(changedContracts))
 					server.send <- data
 				}
 
@@ -137,12 +140,24 @@ func initializeWatcher() {
 						contracts, _ := truffle.GetTruffleContracts(filepath.Join(config.ProjectDirectory, config.BuildDirectory), networkID)
 
 						for _, contract := range contracts {
-							contractsConfig[contract.Name] = &DeploymentInformation{
+							contractsConfig[strings.ToLower(contract.Name)] = &DeploymentInformation{
 								NetworkID: networkID,
 								Address:   contract.Networks[networkID].Address,
+								Name:      contract.Name,
 								Code:      "",
 							}
 						}
+
+						for _, contract := range otherNetworkContracts {
+							contractsConfig[strings.ToLower(contract.Name)] = &DeploymentInformation{
+								NetworkID: networkID,
+								Address:   contract.Address,
+								Name:      contract.Name,
+								Code:      "",
+							}
+						}
+
+						SaveConfig(contractsConfig)
 
 						contractsJson, _ := json.Marshal(contracts)
 

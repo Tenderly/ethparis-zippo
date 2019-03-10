@@ -16,9 +16,10 @@ module.exports = async (deployer) => {
 
     // console.log(contract)
     if (contract.code !== undefined && contract.code !== "") {
-      console.log(contract.code);
+      console.log("DEPLOYING CONTRACT CODE: %s", contract.code);
       await factoryInstance.deploy(contract.code, contract.address)
     } else {
+      console.log("DEPLOYING CONTRACT NAME: %s", contract.name);
       let contractForDeployment = artifacts.require(contract.name);
       await deployer.deploy(contractForDeployment);
     }
