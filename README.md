@@ -13,7 +13,7 @@ brew update && brew install zippo
 ```
 
 ```yaml
-apt-get 
+apt-get install zippo
 ```
 
 ## Usage
