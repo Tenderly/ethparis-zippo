@@ -120,7 +120,6 @@ class Debugger extends Component {
             abi[txContract.address], txContract.address
         ).methods[selectedMethod.replace('()', '')];
 
-
         EthereumClient.sendTransaction(transactionMethod, Object.values(methodInputs), (error, tx) => {
             console.log(error, tx);
 
@@ -139,7 +138,7 @@ class Debugger extends Component {
                         method: selectedMethod,
                         contract: selectedContract,
                         inputs: methodInputs,
-                        result: tx,
+                        result: error.message,
                     });
                 }
             }
@@ -147,9 +146,7 @@ class Debugger extends Component {
             setTimeout(() => {
                 this.setState({
                     sendingTransaction: false,
-                    transactionResult: {
-                        message: 'something'
-                    },
+                    transactionResult: !error ? tx : error.message,
                 });
             }, 1000);
         });
@@ -208,7 +205,8 @@ class Debugger extends Component {
                             <Loader/>
                         </div>}
                         {!sendingTransaction && <div className="ResultContent">
-                            <pre className="Result">{JSON.stringify(transactionResult)}</pre>
+                            <span>Transaction Result:</span>
+                            <pre className="Result">{JSON.stringify(transactionResult, null, 4)}</pre>
                         </div>}
                     </div>}
                 </div>}

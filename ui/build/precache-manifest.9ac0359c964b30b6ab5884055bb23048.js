@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "3ffb7daf9fe32fa198b1",
+    "revision": "e5d18239a0349841d04f",
     "url": "/static/css/main.7b2180ef.chunk.css"
   },
   {
-    "revision": "3ffb7daf9fe32fa198b1",
-    "url": "/static/js/main.c7d0b587.chunk.js"
+    "revision": "e5d18239a0349841d04f",
+    "url": "/static/js/main.738aa55a.chunk.js"
   },
   {
     "revision": "fdfcfda2d9b1bf31db52",
@@ -24,10 +24,6 @@ self.__precacheManifest = [
     "url": "/static/media/ZippoIcons.477ac0e5.woff2"
   },
   {
-    "revision": "1f7868812561c4e8776a4215cfd46d83",
-    "url": "/static/media/ZippoIcons.1f786881.woff"
-  },
-  {
     "revision": "5ff74811adf34af979922f6c7cab9733",
     "url": "/static/media/ZippoIcons.5ff74811.ttf"
   },
@@ -36,11 +32,15 @@ self.__precacheManifest = [
     "url": "/static/media/ZippoIcons.c7d23928.eot"
   },
   {
+    "revision": "1f7868812561c4e8776a4215cfd46d83",
+    "url": "/static/media/ZippoIcons.1f786881.woff"
+  },
+  {
     "revision": "aef06a4a9406f8dacefc2580ed7809fc",
     "url": "/static/media/ZippoIcons.aef06a4a.svg"
   },
   {
-    "revision": "3ae4e70398e182e5a98eb3fa6c0f33a6",
+    "revision": "f1563f8837abe9f74a1d9d0433df373c",
     "url": "/index.html"
   }
 ];

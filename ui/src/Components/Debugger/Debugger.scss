@@ -55,4 +55,34 @@
       padding-left: 20px;
     }
   }
+
+  .TransactionResultWrapper {
+    margin-top: 20px;
+
+    .ResultLoader {
+      min-height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .ResultContent {
+      span {
+        margin-bottom: 5px;
+        padding: 0 10px;
+        text-transform: uppercase;
+        font-size: 12px;
+        display: block;
+      }
+      pre {
+        margin: 0;
+        background: $Dark400;
+        border-radius: 4px;
+        border: 1px solid $Dark500;
+        overflow-x: auto;
+        padding: 10px 15px;
+        line-height: 17px;
+      }
+    }
+  }
 }
