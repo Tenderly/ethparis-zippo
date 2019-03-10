@@ -153,7 +153,7 @@ func initializeWatcher() {
 								NetworkID: networkID,
 								Address:   contract.Address,
 								Name:      contract.Name,
-								Code:      "",
+								Code:      contract.Code,
 							}
 						}
 
