@@ -1,9 +1,45 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import classNames from 'classnames';
 import Moment from 'moment';
 
 import "./ActionLogs.scss";
 import Icon from "../Icon/Icon";
+
+class Log extends Component {
+    getLogEntryClass = (log) => {
+        if (log.level === 'error') {
+            return 'Error';
+        }
+
+        return '';
+    };
+
+    render() {
+        const {log} = this.props;
+
+        return (
+            <div className={classNames(
+                "LogEntry",
+                this.getLogEntryClass(log),
+            )}>
+                <div className="BasicInfo">
+                    <div className="LogLevel">{log.level}</div>
+                    <div className="LogTimestamp">{log.timestamp.format('YYYY-MM-DD hh:mm:ss')}</div>
+                </div>
+                <div className="LogDetails">
+                    <div className="MainMessage">
+                        <div>
+                            <span className="LogType">[{log.type}]</span>
+                            <span>{log.data.message}</span>
+                        </div>
+                        <Icon icon="chevron-down"/>
+                    </div>
+                    {/*<div className="DetailedMessage">{log.data.details}</div>*/}
+                </div>
+            </div>
+        )
+    }
+}
 
 class ActionLogs extends Component {
     constructor(props) {
@@ -62,14 +98,6 @@ class ActionLogs extends Component {
         };
     }
 
-    getLogEntryClass = (log) => {
-        if (log.level === 'error') {
-            return 'Error';
-        }
-
-        return '';
-    };
-
     render() {
         const {logs, connection} = this.props;
 
@@ -86,22 +114,10 @@ class ActionLogs extends Component {
                 </div>
                 <div className="LogsContent">
                     <div className="LogsWrapper">
-                        {logs.map(log => <div className={classNames(
-                            "LogEntry",
-                            this.getLogEntryClass(log),
-                        )} key={log.timestamp}>
-                            <div className="BasicInfo">
-                                <div className="LogLevel">{log.level}</div>
-                                <div className="LogTimestamp">{log.timestamp.format('YYYY-MM-DD hh:mm:ss')}</div>
-                            </div>
-                            <div className="LogDetails">
-                                <div className="MainMessage">
-                                    <span className="LogType">[{log.type}]</span>
-                                    <span>{log.data.message}</span>
-                                </div>
-                                <div className="DetailedMessage">{log.data.details}</div>
-                            </div>
-                        </div>)}
+                        {logs.map(log => <Fragment key={log.timestamp}>
+                            <Log log={log}/>
+                            <div className="LogDivider"/>
+                        </Fragment>)}
                     </div>
                 </div>
             </div>

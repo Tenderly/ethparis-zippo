@@ -107,7 +107,7 @@ class Debugger extends Component {
 
     sendTransaction = () => {
         const {contracts, selectedContract, methodInputs, selectedMethod} = this.state;
-        const {abi} = this.props;
+        const {abi, onTransaction} = this.props;
 
         this.setState({
             sendingTransaction: true,
@@ -122,17 +122,37 @@ class Debugger extends Component {
 
 
         EthereumClient.sendTransaction(transactionMethod, Object.values(methodInputs), (error, tx) => {
-            // console.log(error, tx);
-        });
+            console.log(error, tx);
 
-        setTimeout(() => {
-            this.setState({
-                sendingTransaction: false,
-                transactionResult: {
-                    message: 'something'
-                },
-            });
-        }, 5000);
+            if (onTransaction) {
+                if (!error) {
+                    onTransaction({
+                        level: 'info',
+                        method: selectedMethod,
+                        contract: selectedContract,
+                        inputs: methodInputs,
+                        result: tx,
+                    });
+                } else {
+                    onTransaction({
+                        level: 'error',
+                        method: selectedMethod,
+                        contract: selectedContract,
+                        inputs: methodInputs,
+                        result: tx,
+                    });
+                }
+            }
+
+            setTimeout(() => {
+                this.setState({
+                    sendingTransaction: false,
+                    transactionResult: {
+                        message: 'something'
+                    },
+                });
+            }, 1000);
+        });
     };
 
     render() {
